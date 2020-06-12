@@ -11,14 +11,14 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-header flex-wrap py-3">
                             <div class="card-title">
-                                <h3 class="card-label">Categorías
+                                <h3 class="card-label">Tipos de perfume
                             </div>
                             <div class="card-toolbar">
                                 
                                 <!--end::Dropdown-->
                                 <!--begin::Button-->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categoryModal" @click="create()">
-                                    Nueva categoría
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#typeModal" @click="create()">
+                                    Nuevo tipo
                                 </button>
                                 <!--end::Button-->
                             </div>
@@ -34,12 +34,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(category, index) in categories">
+                                    <tr v-for="(type, index) in types">
                                         <th>@{{ index + 1 }}</th>
-                                        <td>@{{ category.name }}</td>
+                                        <td>@{{ type.name }}</td>
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal" @click="edit(category)"><i class="far fa-edit"></i></button>
-                                            <button class="btn btn-primary" @click="erase(category.id)"><i class="far fa-trash-alt"></i></button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#typeModal" @click="edit(type)"><i class="far fa-edit"></i></button>
+                                            <button class="btn btn-primary" @click="erase(type.id)"><i class="far fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -78,7 +78,7 @@
             </div>
 
             <!-- Modal-->
-            <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="typeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -114,11 +114,11 @@
             el: '#dev-category',
             data(){
                 return{
-                    modalTitle:"Nueva categoría",
+                    modalTitle:"Nuevo tipo",
                     name:"",
-                    categoryId:"",
+                    typeId:"",
                     action:"create",
-                    categories:[],
+                    types:[],
                     pages:0,
                     page:1
                 }
@@ -128,11 +128,11 @@
                 create(){
                     this.action = "create"
                     this.name = ""
-                    this.categoryId = ""
+                    this.typeId = ""
                 },
                 store(){
 
-                    axios.post("{{ url('admin/category/store') }}", {name: this.name})
+                    axios.post("{{ url('admin/type/store') }}", {name: this.name})
                     .then(res => {
 
                         if(res.data.success == true){
@@ -156,14 +156,14 @@
                 },
                 update(){
 
-                    axios.post("{{ url('admin/category/update') }}", {id: this.categoryId, name: this.name})
+                    axios.post("{{ url('admin/type/update') }}", {id: this.typeId, name: this.name})
                     .then(res => {
 
                         if(res.data.success == true){
 
                             alert(res.data.msg)
                             this.name = ""
-                            this.categoryId = ""
+                            this.typeId = ""
                             this.fetch()
                             
                         }else{
@@ -180,21 +180,21 @@
                     })
 
                 },
-                edit(category){
-                    this.modalTitle = "Editar categoría"
+                edit(type){
+                    this.modalTitle = "Editar tipo"
                     this.action = "edit"
-                    this.name = category.name
-                    this.categoryId = category.id
+                    this.name = type.name
+                    this.typeId = type.id
                 },
                 fetch(page = 1){
 
                     this.page = page
 
-                    axios.get("{{ url('/admin/category/fetch/') }}"+"/"+page)
+                    axios.get("{{ url('/admin/type/fetch/') }}"+"/"+page)
                     .then(res => {
 
-                        this.categories = res.data.categories
-                        this.pages = Math.ceil(res.data.categoriesCount / 20)
+                        this.types = res.data.types
+                        this.pages = Math.ceil(res.data.typesCount / 20)
 
                     })
                     .catch(err => {
@@ -208,7 +208,7 @@
 
                     if(confirm("¿Está seguro?")){
 
-                        axios.post("{{ url('/admin/category/delete/') }}", {id: id}).then(res => {
+                        axios.post("{{ url('/admin/type/delete/') }}", {id: id}).then(res => {
 
                             if(res.data.success == true){
                                 alert(res.data.msg)

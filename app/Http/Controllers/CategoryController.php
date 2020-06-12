@@ -32,6 +32,49 @@ class CategoryController extends Controller
         
     }
 
+    function update(CategoryUpdateRequest $request){
+
+        try{
+
+            if(Category::where('name', $request->name)->where('id', '<>', $request->id)->count() == 0){
+                
+                $category = Category::find($request->id);
+                $category->name = $request->name;
+                $category->update();
+
+                return response()->json(["success" => true, "msg" => "Categoría actualizada"]);
+            
+            }else{
+
+                return response()->json(["success" => false, "msg" => "Este nombre ya existe"]);
+
+            }
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+
+        }
+        
+    }
+
+    function delete(Request $request){
+
+        try{
+
+            $category = Category::find($request->id);
+            $category->delete();
+
+            return response()->json(["success" => true, "msg" => "Categoría eliminada"]);
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Error en el servidor"]);
+
+        }
+
+    }
+
     function fetch($page = 1){
 
         try{
