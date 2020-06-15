@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Imagen:</label>
-                                    <img :src="'{{ url('/') }}'+'/images/products/'+showProduct.image" alt="">
+                                    <img :src="'{{ url('/') }}'+'/images/products/'+showProduct.image" alt="" style="width: 100%">
                                 </div>
                                 <div class="col-md-12">
                                     <p class="text-center">Presentaciones</p>
