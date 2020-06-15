@@ -14,6 +14,12 @@ class UserController extends Controller
 
     }
 
+    function shopping($user_id){
+
+        return view("admin.clients.shoppings", ["user_id" => $user_id]);
+
+    }
+
     function fetch($page = 1){
 
         try{

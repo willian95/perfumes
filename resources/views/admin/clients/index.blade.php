@@ -32,6 +32,7 @@
                                         <th>Dirección</th>
                                         <th>Email</th>
                                         <th>Cedula</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,6 +44,9 @@
                                         <td>@{{ user.email }}</td>
                                         <td>
                                             @{{ user.identification }}
+                                        </td>
+                                        <td>
+                                            <a :href="'{{ url('/admin/user/shopping/') }}'+'/'+user.id" class="btn btn-success">Compras</a>
                                         </td>
                                     </tr>
                                 </tbody>

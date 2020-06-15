@@ -56,6 +56,8 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get("/admin/user/index", "UserController@index");
     Route::get("/admin/user/fetch/{page}", "UserController@fetch");
+    Route::get("/admin/user/shopping/{user_id}", "UserController@shopping");
+    Route::get("/admin/user/shopping/{page}/user/{user_id}", "ShoppingController@fetchByUser");
 
     Route::get("/admin/product/index", "ProductController@index");
     Route::get("/admin/product/create", "ProductController@create");
@@ -68,5 +70,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get("/admin/shopping/index", "ShoppingController@index");
     Route::get("/admin/shopping/fetch/{page}", "ShoppingController@fetch");
+
+
 
 });

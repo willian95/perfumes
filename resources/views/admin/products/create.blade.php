@@ -229,6 +229,11 @@
 
                     this.productSizeTypes.push({size: this.size, type: this.type, stock: this.stock, price: this.price})
 
+                    this.size = ""
+                    this.type = ""
+                    this.stock = ""
+                    this.price = ""
+
                 },
                 deleteProductSizeType(index){
 

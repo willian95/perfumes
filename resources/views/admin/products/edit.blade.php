@@ -235,6 +235,10 @@
 
                     if(this.size != "" && this.type != "" && this.stock != "" && this.price != ""){
                         this.productSizeTypes.push({size: this.size, type: this.type, stock: this.stock, price: this.price})
+                        this.size = ""
+                        this.type = ""
+                        this.stock = ""
+                        this.price = ""
                     }
 
                 },
@@ -251,6 +255,11 @@
                     this.price = this.productSizeTypes[index]["price"]
                     this.productTypeIndex = index
                     this.edit = true
+
+                    this.size = ""
+                    this.type = ""
+                    this.stock = ""
+                    this.price = ""
 
                 },
                 updateProductSizeType(){
