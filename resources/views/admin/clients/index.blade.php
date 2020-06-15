@@ -31,6 +31,7 @@
                                         <th>Telefono</th>
                                         <th>Dirección</th>
                                         <th>Email</th>
+                                        <th>Cedula</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,7 +42,7 @@
                                         <td>@{{ user.address }}</td>
                                         <td>@{{ user.email }}</td>
                                         <td>
-                                            
+                                            @{{ user.identification }}
                                         </td>
                                     </tr>
                                 </tbody>
