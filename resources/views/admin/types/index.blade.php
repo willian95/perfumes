@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
+                                        <th>Abrevicación</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                     <tr v-for="(type, index) in types">
                                         <th>@{{ index + 1 }}</th>
                                         <td>@{{ type.name }}</td>
+                                        <td>@{{ type.abbreviation }}</td>
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#typeModal" @click="edit(type)"><i class="far fa-edit"></i></button>
                                             <button class="btn btn-primary" @click="erase(type.id)"><i class="far fa-trash-alt"></i></button>
@@ -88,7 +90,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" class="form-control" id="name" v-model="name">
+                            <div class="form-grodfdgup">
+                                <label for="name">Nombre</label>
+                                <input type="text" class="form-control" id="name" v-model="name">
+                            </div>
+                            <div class="form-grodfdgup">
+                                <label for="abbreviation">Abreviación</label>
+                                <input type="text" class="form-control" id="abbreviation" v-model="abbreviation">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
@@ -117,6 +126,7 @@
                     modalTitle:"Nuevo tipo",
                     name:"",
                     typeId:"",
+                    abbreviation:"",
                     action:"create",
                     types:[],
                     pages:0,
@@ -129,16 +139,18 @@
                     this.action = "create"
                     this.name = ""
                     this.typeId = ""
+                    this.abbreviation = ""
                 },
                 store(){
 
-                    axios.post("{{ url('admin/type/store') }}", {name: this.name})
+                    axios.post("{{ url('admin/type/store') }}", {name: this.name, abbreviation: this.abbreviation})
                     .then(res => {
 
                         if(res.data.success == true){
 
                             alert(res.data.msg)
                             this.name = ""
+                            this.abbreviation = ""
                             this.fetch()
                         }else{
 
@@ -156,13 +168,14 @@
                 },
                 update(){
 
-                    axios.post("{{ url('admin/type/update') }}", {id: this.typeId, name: this.name})
+                    axios.post("{{ url('admin/type/update') }}", {id: this.typeId, name: this.name, abbreviation: this.abbreviation})
                     .then(res => {
 
                         if(res.data.success == true){
 
                             alert(res.data.msg)
                             this.name = ""
+                            this.abbreviation = ""
                             this.typeId = ""
                             this.fetch()
                             
@@ -184,6 +197,7 @@
                     this.modalTitle = "Editar tipo"
                     this.action = "edit"
                     this.name = type.name
+                    this.abbreviation = type.abbreviation
                     this.typeId = type.id
                 },
                 fetch(page = 1){

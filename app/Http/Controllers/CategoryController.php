@@ -94,4 +94,20 @@ class CategoryController extends Controller
 
     }
 
+    function fetchAll(){
+
+        try{
+
+            $categories = Category::all();
+
+            return response()->json(["success" => true, "categories" => $categories]);
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Error en el servidor"]);
+
+        }
+
+    }
+
 }

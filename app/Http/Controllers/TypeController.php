@@ -19,6 +19,7 @@ class TypeController extends Controller
 
             $type = new Type;
             $type->name = $request->name;
+            $type->abbreviation = $request->abbreviation;
             $type->save();
 
             return response()->json(["success" => true, "msg" => "Tipo de fragancia creada"]);
@@ -39,6 +40,7 @@ class TypeController extends Controller
                 
                 $type = Type::find($request->id);
                 $type->name = $request->name;
+                $type->abbreviation = $request->abbreviation;
                 $type->update();
 
                 return response()->json(["success" => true, "msg" => "Tipo de fragancia actualizado"]);
@@ -92,4 +94,21 @@ class TypeController extends Controller
         }
 
     }
+
+    function fetchAll(){
+
+        try{
+
+            $types = Type::all();
+
+            return response()->json(["success" => true, "types" => $types]);
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Error en el servidor"]);
+
+        }
+
+    }
+
 }

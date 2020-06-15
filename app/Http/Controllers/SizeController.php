@@ -19,6 +19,7 @@ class SizeController extends Controller
 
             $size = new Size;
             $size->name = $request->name;
+            $size->ml = $request->ml;
             $size->save();
 
             return response()->json(["success" => true, "msg" => "Tamaño creado"]);
@@ -39,6 +40,7 @@ class SizeController extends Controller
                 
                 $size = Size::find($request->id);
                 $size->name = $request->name;
+                $size->ml = $request->ml;
                 $size->update();
 
                 return response()->json(["success" => true, "msg" => "Tamaño actualizado"]);
@@ -84,6 +86,22 @@ class SizeController extends Controller
             $sizesCount = Size::count();
 
             return response()->json(["success" => true, "sizes" => $sizes, "sizesCount" => $sizesCount]);
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Error en el servidor"]);
+
+        }
+
+    }
+
+    function fetchAll(){
+
+        try{
+
+            $sizes = Size::all();
+
+            return response()->json(["success" => true, "sizes" => $sizes]);
 
         }catch(\Exception $e){
 

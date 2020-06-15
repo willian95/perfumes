@@ -11,16 +11,10 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-header flex-wrap py-3">
                             <div class="card-title">
-                                <h3 class="card-label">Tamaños
+                                <h3 class="card-label">Compras
                             </div>
                             <div class="card-toolbar">
                                 
-                                <!--end::Dropdown-->
-                                <!--begin::Button-->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sizeModal" @click="create()">
-                                    Nuevo tamaño
-                                </button>
-                                <!--end::Button-->
                             </div>
                         </div>
                         <div class="card-body">
@@ -29,19 +23,20 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Oz</th>
-                                        <th>Ml</th>
+                                        <th>Cliente</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(size, index) in sizes">
+                                    <tr v-for="(shopping, index) in shoppings">
                                         <th>@{{ index + 1 }}</th>
-                                        <td>@{{ size.name }}</td>
-                                        <td>@{{ size.ml }}</td>
+                                        <td>@{{ shopping.user.name }}</td>
+                                        <td>@{{ shopping.status }}</td>
+                                        <td>@{{ shopping.total }}</td>
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#sizeModal" @click="edit(size)"><i class="far fa-edit"></i></button>
-                                            <button class="btn btn-primary" @click="erase(size.id)"><i class="far fa-trash-alt"></i></button>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#shoppingModal" @click="show(shopping)"><i class="far fa-eye"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -80,29 +75,78 @@
             </div>
 
             <!-- Modal-->
-            <div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="shoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i aria-hidden="true" class="ki ki-close"></i>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name">Oz</label>
-                                <input type="text" class="form-control" id="name" v-model="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="ml">Ml</label>
-                                <input type="text" class="form-control" id="ml" v-model="ml">
+                        <div class="modal-body" v-if="shopping != ''">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Cliente</label>
+                                    <p>@{{ shopping.user.name }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                    <p>@{{ shopping.user.email }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Costo productos</label>
+                                    <p>@{{ shopping.total_products }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Costo envío</label>
+                                    <p>@{{ shopping.shipping_cost }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Total</label>
+                                    <p>@{{ shopping.total }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Tracking</label>
+                                    <p>@{{ shopping.tracking }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Status tracing</label>
+                                    <p>@{{ shopping.status_shipping }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Dirección</label>
+                                    <p>@{{ shopping.address }}</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <h3 class="text-center">Productos</h3>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered table-checkable">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Precio</th>
+                                                <th>Costo envío</th>
+                                                <th>Tipo</th>
+                                                <th>Tamaño</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
+                                                <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ - shoppingPurchase.product_type_size.product }}</td>
+                                                <td>@{{ shoppingPurchase.price }}</td>
+                                                <td>@{{ shoppingPurchase.shipping_cost }}</td>
+                                                <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
+                                                <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary font-weight-bold"  @click="store()" v-if="action == 'create'">Crear</button>
-                            <button type="button" class="btn btn-primary font-weight-bold"  @click="update()" v-if="action == 'edit'">Actualizar</button>
                         </div>
                     </div>
                 </div>
@@ -123,90 +167,29 @@
             el: '#dev-category',
             data(){
                 return{
-                    modalTitle:"Nuevo tamaño",
-                    name:"",
-                    sizeId:"",
-                    action:"create",
-                    ml:"",
-                    sizes:[],
+                    shopping:"",
+                    shoppings:[],
                     pages:0,
                     page:1
                 }
             },
             methods:{
-                
-                create(){
-                    this.action = "create"
-                    this.name = ""
-                    this.sizeId = ""
-                },
-                store(){
 
-                    axios.post("{{ url('admin/size/store') }}", {name: this.name, ml: this.ml})
-                    .then(res => {
+                show(shopping){
 
-                        if(res.data.success == true){
+                    this.shopping = shopping
+                    console.log(this.shopping)
 
-                            alert(res.data.msg)
-                            this.name = ""
-                            this.ml = ""
-                            this.fetch()
-                        }else{
-
-                            alert(res.data.msg)
-
-                        }
-
-                    })
-                    .catch(err => {
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
-                    })
-
-                },
-                update(){
-
-                    axios.post("{{ url('admin/size/update') }}", {id: this.sizeId, name: this.name, ml: this.ml})
-                    .then(res => {
-
-                        if(res.data.success == true){
-
-                            alert(res.data.msg)
-                            this.name = ""
-                            this.sizeId = ""
-                            this.ml = ""
-                            this.fetch()
-                            
-                        }else{
-
-                            alert(res.data.msg)
-
-                        }
-
-                    })
-                    .catch(err => {
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
-                    })
-
-                },
-                edit(size){
-                    this.modalTitle = "Editar tamaño"
-                    this.action = "edit"
-                    this.name = size.name
-                    this.sizeId = size.id
                 },
                 fetch(page = 1){
 
                     this.page = page
 
-                    axios.get("{{ url('/admin/size/fetch/') }}"+"/"+page)
+                    axios.get("{{ url('/admin/shopping/fetch/') }}"+"/"+page)
                     .then(res => {
 
-                        this.sizes = res.data.sizes
-                        this.pages = Math.ceil(res.data.sizesCount / 20)
+                        this.shoppings = res.data.shoppings
+                        this.pages = Math.ceil(res.data.shoppingsCount / 20)
 
                     })
                     .catch(err => {
@@ -214,31 +197,6 @@
                             alert(value)
                         });
                     })
-
-                },
-                erase(id){
-
-                    if(confirm("¿Está seguro?")){
-
-                        axios.post("{{ url('/admin/size/delete/') }}", {id: id}).then(res => {
-
-                            if(res.data.success == true){
-                                alert(res.data.msg)
-                                this.fetch()
-                            }else{
-
-                                alert(res.data.msg)
-
-                            }
-
-                        })
-                        .catch(err => {
-                            $.each(err.response.data.errors, function(key, value){
-                                alert(value)
-                            });
-                        })
-
-                    }
 
                 }
 

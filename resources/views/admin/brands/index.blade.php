@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
+                                        <th>Imagen</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -37,6 +38,9 @@
                                     <tr v-for="(brand, index) in brands">
                                         <th>@{{ index + 1 }}</th>
                                         <td>@{{ brand.name }}</td>
+                                        <td>
+                                            <img :src="'{{ url('/images/brands') }}'+'/'+brand.image" alt="" style="width: 20%">
+                                        </td>
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#brandModal" @click="edit(brand)"><i class="far fa-edit"></i></button>
                                             <button class="btn btn-primary" @click="erase(brand.id)"><i class="far fa-trash-alt"></i></button>
@@ -88,8 +92,19 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <label for="name">Nombre</label>
                             <input type="text" class="form-control" id="name" v-model="name">
+
+                            <div class="form-group">
+                                <label for="picture">Imagen</label>
+                                <input type="file" id="image" class="form-control" id="picture" ref="file" @change="onImageChange" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <img id="blah" :src="imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
+                            </div>
+
                         </div>
+                        
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary font-weight-bold"  @click="store()" v-if="action == 'create'">Crear</button>
@@ -117,6 +132,8 @@
                     modalTitle:"Nueva marca",
                     name:"",
                     brandId:"",
+                    picture:"",
+                    imagePreview:"",
                     action:"create",
                     brands:[],
                     pages:0,
@@ -132,13 +149,15 @@
                 },
                 store(){
 
-                    axios.post("{{ url('admin/brand/store') }}", {name: this.name})
+                    axios.post("{{ url('admin/brand/store') }}", {name: this.name, image: this.picture})
                     .then(res => {
 
                         if(res.data.success == true){
 
                             alert(res.data.msg)
                             this.name = ""
+                            this.imagePreview = ""
+                            $("#image").val(null)
                             this.fetch()
                         }else{
 
@@ -156,7 +175,7 @@
                 },
                 update(){
 
-                    axios.post("{{ url('admin/brand/update') }}", {id: this.brandId, name: this.name})
+                    axios.post("{{ url('admin/brand/update') }}", {id: this.brandId, name: this.name, image: this.picture})
                     .then(res => {
 
                         if(res.data.success == true){
@@ -164,6 +183,8 @@
                             alert(res.data.msg)
                             this.name = ""
                             this.brandId = ""
+                            this.imagePreview = ""
+                            $("#image").val(null)
                             this.fetch()
                             
                         }else{
@@ -185,6 +206,25 @@
                     this.action = "edit"
                     this.name = brand.name
                     this.brandId = brand.id
+                    this.imagePreview = "{{ url('/') }}"+"/images/brands/"+brand.image
+                },
+                onImageChange(e){
+                    this.picture = e.target.files[0];
+
+                    this.imagePreview = URL.createObjectURL(this.picture);
+                    let files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+                    this.view_image = false
+                    this.createImage(files[0]);
+                },
+                createImage(file) {
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onload = (e) => {
+                        vm.picture = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
                 },
                 fetch(page = 1){
 

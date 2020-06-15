@@ -11,15 +11,15 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-header flex-wrap py-3">
                             <div class="card-title">
-                                <h3 class="card-label">Tamaños
+                                <h3 class="card-label">Productos
                             </div>
                             <div class="card-toolbar">
                                 
                                 <!--end::Dropdown-->
                                 <!--begin::Button-->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sizeModal" @click="create()">
-                                    Nuevo tamaño
-                                </button>
+                                <a type="button" class="btn btn-primary" href="{{ url('/admin/product/create') }}">
+                                    Nuevo Producto
+                                </a>
                                 <!--end::Button-->
                             </div>
                         </div>
@@ -29,19 +29,19 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Oz</th>
-                                        <th>Ml</th>
+                                        <th>Producto</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(size, index) in sizes">
+                                    <tr v-for="(product, index) in products">
                                         <th>@{{ index + 1 }}</th>
-                                        <td>@{{ size.name }}</td>
-                                        <td>@{{ size.ml }}</td>
+                                        <td>@{{ product.name }}</td>
                                         <td>
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#sizeModal" @click="edit(size)"><i class="far fa-edit"></i></button>
-                                            <button class="btn btn-primary" @click="erase(size.id)"><i class="far fa-trash-alt"></i></button>
+                                            <a class="btn btn-primary" :href="'{{ url('/admin/product/edit/') }}'+'/'+product.id"><i class="far fa-edit"></i></a>
+
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal" @click="show(product)"><i class="far fa-eye"></i></button>                                            
+                                            <button class="btn btn-primary" @click="erase(product.id)"><i class="far fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -80,29 +80,67 @@
             </div>
 
             <!-- Modal-->
-            <div class="modal fade" id="sizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">@{{ modalTitle }}</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Producto y presentaciones</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i aria-hidden="true" class="ki ki-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name">Oz</label>
-                                <input type="text" class="form-control" id="name" v-model="name">
+                            
+                            <div class="row" v-if="showProduct != ''">
+                                <div class="col-md-6">
+                                    <label>Nombre:</label>
+                                    <p>@{{ showProduct.name }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Marca:</label>
+                                    <p>@{{ showProduct.brand.name }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Categoría:</label>
+                                    <p>@{{ showProduct.category.name }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Imagen:</label>
+                                    <img :src="'{{ url('/') }}'+'/images/products/'+showProduct.image" alt="">
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="text-center">Presentaciones</p>
+
+                                    <table class="table table-bordered table-checkable" id="kt_datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Fragancia</th>
+                                                <th>Tamaño</th>
+                                                <th>Stock</th>
+                                                <th>precio</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(productSize, index) in showProduct.product_type_sizes" v-if="showProduct != ''">
+                                                <th>@{{ index + 1 }}</th>
+                                                <td>@{{ productSize.type.name }}</td>
+                                                <td>@{{ productSize.size.name }}</td>
+                                                <td>@{{ productSize.stock }}</td>
+                                                <td>@{{ productSize.price }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                
                             </div>
-                            <div class="form-group">
-                                <label for="ml">Ml</label>
-                                <input type="text" class="form-control" id="ml" v-model="ml">
-                            </div>
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary font-weight-bold"  @click="store()" v-if="action == 'create'">Crear</button>
-                            <button type="button" class="btn btn-primary font-weight-bold"  @click="update()" v-if="action == 'edit'">Actualizar</button>
                         </div>
                     </div>
                 </div>
@@ -123,119 +161,50 @@
             el: '#dev-category',
             data(){
                 return{
-                    modalTitle:"Nuevo tamaño",
-                    name:"",
-                    sizeId:"",
-                    action:"create",
-                    ml:"",
-                    sizes:[],
+                    modalTitle:"Nueva categoría",
+                    products:[],
+                    showProduct:"",
                     pages:0,
                     page:1
                 }
             },
             methods:{
                 
-                create(){
-                    this.action = "create"
-                    this.name = ""
-                    this.sizeId = ""
-                },
-                store(){
-
-                    axios.post("{{ url('admin/size/store') }}", {name: this.name, ml: this.ml})
-                    .then(res => {
-
-                        if(res.data.success == true){
-
-                            alert(res.data.msg)
-                            this.name = ""
-                            this.ml = ""
-                            this.fetch()
-                        }else{
-
-                            alert(res.data.msg)
-
-                        }
-
-                    })
-                    .catch(err => {
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
-                    })
-
-                },
-                update(){
-
-                    axios.post("{{ url('admin/size/update') }}", {id: this.sizeId, name: this.name, ml: this.ml})
-                    .then(res => {
-
-                        if(res.data.success == true){
-
-                            alert(res.data.msg)
-                            this.name = ""
-                            this.sizeId = ""
-                            this.ml = ""
-                            this.fetch()
-                            
-                        }else{
-
-                            alert(res.data.msg)
-
-                        }
-
-                    })
-                    .catch(err => {
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
-                    })
-
-                },
-                edit(size){
-                    this.modalTitle = "Editar tamaño"
-                    this.action = "edit"
-                    this.name = size.name
-                    this.sizeId = size.id
-                },
                 fetch(page = 1){
-
                     this.page = page
+                    axios.get("{{ url('/admin/product/fetch/') }}"+"/"+page).then(res => {
 
-                    axios.get("{{ url('/admin/size/fetch/') }}"+"/"+page)
-                    .then(res => {
+                        if(res.data.success == true){
 
-                        this.sizes = res.data.sizes
-                        this.pages = Math.ceil(res.data.sizesCount / 20)
+                            this.products = res.data.products
+                            this.pages = Math.ceil(res.data.productsCount / 20)
+
+                        }else{
+                            alert(res.data.msg)
+                        }
 
                     })
-                    .catch(err => {
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
-                    })
+
+                },
+                show(product){
+
+                    this.showProduct = product
 
                 },
                 erase(id){
 
                     if(confirm("¿Está seguro?")){
 
-                        axios.post("{{ url('/admin/size/delete/') }}", {id: id}).then(res => {
+                        axios.post("{{ url('/admin/product/delete/') }}", {id: id})
+                        .then(res => {
 
                             if(res.data.success == true){
                                 alert(res.data.msg)
                                 this.fetch()
                             }else{
-
                                 alert(res.data.msg)
-
                             }
 
-                        })
-                        .catch(err => {
-                            $.each(err.response.data.errors, function(key, value){
-                                alert(value)
-                            });
                         })
 
                     }
@@ -247,6 +216,7 @@
             mounted(){
                 
                 this.fetch()
+                
 
             }
 

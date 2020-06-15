@@ -20,7 +20,8 @@ class BrandStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|unique:brands,name"
+            "name" => "required|unique:brands,name",
+            "image" => "required"
         ];
     }
 
@@ -30,6 +31,7 @@ class BrandStoreRequest extends FormRequest
         return [
             "name.required" => "Campo nombre es requerido",
             "name.unique" => "Este nombre ya existe",
+            "image.required" => "Imagen es obligatoria"
         ];
     }
 }
