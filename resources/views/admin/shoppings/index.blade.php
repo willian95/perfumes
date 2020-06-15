@@ -134,7 +134,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
-                                                <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product }}</td>
+                                                <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
                                                 <td>@{{ shoppingPurchase.price }}</td>
                                                 <td>@{{ shoppingPurchase.shipping_cost }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
