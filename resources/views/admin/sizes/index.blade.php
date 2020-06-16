@@ -147,7 +147,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Genial!",
+                                text: "Tamaño creado!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.ml = ""
                             this.fetch()
@@ -172,7 +176,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Genial!",
+                                text: "Tamaño actualizado!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.sizeId = ""
                             this.ml = ""
@@ -218,27 +226,39 @@
                 },
                 erase(id){
 
-                    if(confirm("¿Está seguro?")){
+                    swal({
+                        title: "¿Estás seguro?",
+                        text: "Eliminarás este tamaño!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            
+                            axios.post("{{ url('/admin/size/delete/') }}", {id: id}).then(res => {
 
-                        axios.post("{{ url('/admin/size/delete/') }}", {id: id}).then(res => {
+                                if(res.data.success == true){
+                                    swal({
+                                        title: "Genial!",
+                                        text: "Tamaño eliminado!",
+                                        icon: "success"
+                                    });
+                                    this.fetch()
+                                }else{
 
-                            if(res.data.success == true){
-                                alert(res.data.msg)
-                                this.fetch()
-                            }else{
+                                    alert(res.data.msg)
 
-                                alert(res.data.msg)
+                                }
 
-                            }
+                            }).catch(err => {
+                                $.each(err.response.data.errors, function(key, value){
+                                    alert(value)
+                                });
+                            })
 
-                        })
-                        .catch(err => {
-                            $.each(err.response.data.errors, function(key, value){
-                                alert(value)
-                            });
-                        })
-
-                    }
+                        }
+                    });
 
                 }
 

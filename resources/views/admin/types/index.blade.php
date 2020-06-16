@@ -148,7 +148,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Genial!",
+                                text: "Tipo de fragancia creado!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.abbreviation = ""
                             this.fetch()
@@ -173,7 +177,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Genial!",
+                                text: "Tipo de fragancia actualizada!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.abbreviation = ""
                             this.typeId = ""
@@ -220,27 +228,39 @@
                 },
                 erase(id){
 
-                    if(confirm("¿Está seguro?")){
+                    swal({
+                        title: "¿Estás seguro?",
+                        text: "Eliminarás este tipo de fragancia!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            
+                            axios.post("{{ url('/admin/type/delete/') }}", {id: id}).then(res => {
 
-                        axios.post("{{ url('/admin/type/delete/') }}", {id: id}).then(res => {
+                                if(res.data.success == true){
+                                    swal({
+                                        title: "Genial!",
+                                        text: "Tipo de fragancia eliminada!",
+                                        icon: "success"
+                                    });
+                                    this.fetch()
+                                }else{
 
-                            if(res.data.success == true){
-                                alert(res.data.msg)
-                                this.fetch()
-                            }else{
+                                    alert(res.data.msg)
 
-                                alert(res.data.msg)
+                                }
 
-                            }
+                            }).catch(err => {
+                                $.each(err.response.data.errors, function(key, value){
+                                    alert(value)
+                                });
+                            })
 
-                        })
-                        .catch(err => {
-                            $.each(err.response.data.errors, function(key, value){
-                                alert(value)
-                            });
-                        })
-
-                    }
+                        }
+                    });
 
                 }
 

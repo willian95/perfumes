@@ -154,7 +154,12 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Perfecto!",
+                                text: "Has creado una marca!",
+                                icon: "success"
+                            });
+                    
                             this.name = ""
                             this.imagePreview = ""
                             $("#image").val(null)
@@ -180,7 +185,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Excelente!",
+                                text: "Has actualizado una marca!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.brandId = ""
                             this.imagePreview = ""
@@ -246,27 +255,40 @@
                 },
                 erase(id){
 
-                    if(confirm("¿Está seguro?")){
+                    swal({
+                        title: "¿Estás seguro?",
+                        text: "Eliminarás esta marca!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            
+                            axios.post("{{ url('/admin/brand/delete/') }}", {id: id}).then(res => {
 
-                        axios.post("{{ url('/admin/brand/delete/') }}", {id: id}).then(res => {
+                                if(res.data.success == true){
+                                    swal({
+                                        title: "Genial!",
+                                        text: "Marca eliminada!",
+                                        icon: "success"
+                                    });
+                                    this.fetch()
+                                }else{
 
-                            if(res.data.success == true){
-                                alert(res.data.msg)
-                                this.fetch()
-                            }else{
+                                    alert(res.data.msg)
 
-                                alert(res.data.msg)
+                                }
 
-                            }
+                            }).catch(err => {
+                                $.each(err.response.data.errors, function(key, value){
+                                    alert(value)
+                                });
+                            })
 
-                        })
-                        .catch(err => {
-                            $.each(err.response.data.errors, function(key, value){
-                                alert(value)
-                            });
-                        })
+                        }
+                    });
 
-                    }
 
                 }
 

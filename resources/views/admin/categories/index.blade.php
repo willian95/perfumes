@@ -137,7 +137,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Perfecto!",
+                                text: "Has creado una categoría!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.fetch()
                         }else{
@@ -161,7 +165,11 @@
 
                         if(res.data.success == true){
 
-                            alert(res.data.msg)
+                            swal({
+                                title: "Excelente!",
+                                text: "Has actualizado una categoría!",
+                                icon: "success"
+                            });
                             this.name = ""
                             this.categoryId = ""
                             this.fetch()
@@ -206,27 +214,39 @@
                 },
                 erase(id){
 
-                    if(confirm("¿Está seguro?")){
+                    swal({
+                        title: "¿Estás seguro?",
+                        text: "Eliminarás esta categoría!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            
+                            axios.post("{{ url('/admin/category/delete/') }}", {id: id}).then(res => {
 
-                        axios.post("{{ url('/admin/category/delete/') }}", {id: id}).then(res => {
+                                if(res.data.success == true){
+                                    swal({
+                                        title: "Genial!",
+                                        text: "Categoría eliminada!",
+                                        icon: "success"
+                                    });
+                                    this.fetch()
+                                }else{
 
-                            if(res.data.success == true){
-                                alert(res.data.msg)
-                                this.fetch()
-                            }else{
+                                    alert(res.data.msg)
 
-                                alert(res.data.msg)
+                                }
 
-                            }
+                            }).catch(err => {
+                                $.each(err.response.data.errors, function(key, value){
+                                    alert(value)
+                                });
+                            })
 
-                        })
-                        .catch(err => {
-                            $.each(err.response.data.errors, function(key, value){
-                                alert(value)
-                            });
-                        })
-
-                    }
+                        }
+                    });
 
                 }
 
