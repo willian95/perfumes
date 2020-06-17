@@ -3,7 +3,7 @@
 @section("content")
     
     <div id="dev-category">
-        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
                 <div class="container">
@@ -105,7 +105,7 @@
                                     <p>@{{ showProduct.category.name }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Imagen:</label>
+                                    <label>Imágen:</label>
                                     <img :src="'{{ url('/') }}'+'/images/products/'+showProduct.image" alt="" style="width: 100%">
                                 </div>
                                 <div class="col-md-12">
@@ -128,7 +128,7 @@
                                                 <td>@{{ productSize.type.name }}</td>
                                                 <td>@{{ productSize.size.name }}</td>
                                                 <td>@{{ productSize.stock }}</td>
-                                                <td>@{{ productSize.price }}</td>
+                                                <td>$ @{{ parseInt(productSize.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

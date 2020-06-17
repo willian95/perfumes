@@ -3,7 +3,7 @@
 @section("content")
     
     <div id="dev-category">
-        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+        <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
                 <div class="container">
@@ -97,7 +97,7 @@
                                                 <td v-if="productSizeType.size">@{{ productSizeType.size.name }}</td>
                                                 <td v-else></td>
                                                 <td>@{{ productSizeType.stock }}</td>
-                                                <td>@{{ productSizeType.price }} $</td>
+                                                <td>$ @{{ parseInt(productSizeType.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }} </td>
                                                 <td>
                                                     <button class="btn btn-success" @click="editProductSizeType(index)" data-toggle="modal" data-target="#productModal"><i class="far fa-edit"></i></button>
                                                     <button class="btn btn-danger" @click="deleteProductSizeType(index)"><i class="far fa-trash-alt"></i></button>
@@ -170,7 +170,7 @@
                                 <div class="form-group">
                                     <label for="price">Precio</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" v-model="price" @keypress="isNumberDot($event)">
+                                        <input type="text" class="form-control" v-model="price" @keypress="isNumber($event)">
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="basic-addon2">$</span>
                                         </div>

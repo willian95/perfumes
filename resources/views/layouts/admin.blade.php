@@ -30,10 +30,12 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="{{ asset('admin/assets/plugins/global/plugins.bundle.css?v=7.0.4') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('admin/assets/plugins/custom/prismjs/prismjs.bundle.css?v=7.0.4') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('admin/assets/css/style.bundle.css?v=7.0.4') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
 		<!--end::Global Theme Styles-->
 		<!--begin::Layout Themes(used by all pages)-->
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="{{ asset('admin/assets/media/logos/favicon.ico') }}" />
+
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
