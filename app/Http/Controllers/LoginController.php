@@ -20,10 +20,6 @@ class LoginController extends Controller
             $user = User::where("email", $request->email)->first();
             if($user){
 
-                if($user->email_verified_at == null){
-                    return response()->json(["success" => false, "msg" => "Aún no has autenticado tu correo"]);    
-                }
-
             }else{
                 return response()->json(["success" => false, "msg" => "Usuario no encontrado"]);
             }

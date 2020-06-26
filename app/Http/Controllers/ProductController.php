@@ -55,11 +55,19 @@ class ProductController extends Controller
 
         try{
 
+            $slug = str_replace(" ","-", $request->name);
+            $slug = str_replace("/", "-", $slug);
+
+            if(Product::where("slug", $slug)->count() > 0){
+                $slug = $slug."-".uniqid();
+            }
+
             $product = new Product;
             $product->name = $request->name;
             $product->category_id = $request->category;
             $product->brand_id = $request->brand;
             $product->image = $fileName;
+            $product->slug = $slug;
             $product->save();
 
             foreach($request->productSizeTypes as $productTypeSize){
@@ -116,6 +124,13 @@ class ProductController extends Controller
 
         try{
 
+            $slug = str_replace(" ","-", $request->name);
+            $slug = str_replace("/", "-", $slug);
+
+            if(Product::where("slug", $slug)->count() > 0){
+                $slug = $slug."-".uniqid();
+            }
+
             $product = Product::find($request->id);
             $product->name = $request->name;
             $product->category_id = $request->category;
@@ -123,6 +138,7 @@ class ProductController extends Controller
             if($request->get("image") != null){
                 $product->image = $fileName;
             }
+            $product->slug = $slug;
             $product->update();
 
             //ProductTypeSize::where("product_id", $request->id)->delete();
