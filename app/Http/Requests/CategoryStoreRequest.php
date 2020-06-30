@@ -24,7 +24,8 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|unique:categories,name"
+            "name" => "required|unique:categories,name",
+            "image" => "required"
         ];
     }
 
@@ -34,6 +35,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             "name.required" => "Campo nombre es requerido",
             "name.unique" => "Este nombre ya existe",
+            "image.required" => "imagen es requerida"
         ];
     }
 }

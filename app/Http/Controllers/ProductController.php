@@ -66,6 +66,7 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->category_id = $request->category;
             $product->brand_id = $request->brand;
+            $product->description = $request->description;
             $product->image = $fileName;
             $product->slug = $slug;
             $product->save();
@@ -135,6 +136,7 @@ class ProductController extends Controller
             $product->name = $request->name;
             $product->category_id = $request->category;
             $product->brand_id = $request->brand;
+            $product->description = $request->description;
             if($request->get("image") != null){
                 $product->image = $fileName;
             }

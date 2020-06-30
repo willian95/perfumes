@@ -46,6 +46,13 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label for="description">Descripción</label>
+                                        <textarea v-model="description" id="description" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label for="image">Imágen</label>
                                         <input type="file" class="form-control" ref="file" @change="onImageChange" accept="image/*">
                                     </div>
@@ -213,6 +220,7 @@
                     type:"",
                     size:"",
                     picture:"",
+                    description:'{{ $product->description }}',
                     productId:'{{ $product->id }}',
                     category:'{{ $product->category_id }}',
                     brand:'{{ $product->brand_id }}',
@@ -228,7 +236,7 @@
                 
                 update(){
 
-                    axios.post("{{ url('/admin/product/update') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, id: this.productId}).then(res => {
+                    axios.post("{{ url('/admin/product/update') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, id: this.productId, description: this.description}).then(res => {
 
                         if(res.data.success == true){
 

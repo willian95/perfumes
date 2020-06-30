@@ -27,7 +27,8 @@ class ProductStoreRequest extends FormRequest
             "name" => "required",
             "category" => "required|integer|exists:categories,id",
             "brand" => "required|integer|exists:brands,id",
-            "image" => "required"
+            "image" => "required",
+            "description" => "required"
         ];
     }
 
@@ -42,7 +43,8 @@ class ProductStoreRequest extends FormRequest
             "brand.required" => "Marca del producto es requerido",
             "brand.integer" => "Marca seleccionada no es válida",
             "brand.exists" => "Marca seleccionada no es válida",
-            "image.required" => "Imagen del producto es requerido"
+            "image.required" => "Imagen del producto es requerido",
+            "description.required" => "Descripción es requerida"
 
         ];
 

@@ -88,7 +88,18 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" class="form-control" id="name" v-model="name">
+                            <div class="form-group">
+                                <label for="name">Categoría</label>
+                                <input type="text" class="form-control" id="name" v-model="name">
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="image">Imágen</label>
+                                <input type="file" class="form-control" ref="file" @change="onImageChange" accept="image/*" id="image">
+                            </div>
+
+                            <img id="blah" :src="imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
@@ -118,6 +129,8 @@
                     name:"",
                     categoryId:"",
                     action:"create",
+                    imagePreview:"",
+                    picture:"",
                     categories:[],
                     pages:0,
                     page:1
@@ -129,10 +142,11 @@
                     this.action = "create"
                     this.name = ""
                     this.categoryId = ""
+                    this.picture = ""
                 },
                 store(){
 
-                    axios.post("{{ url('admin/category/store') }}", {name: this.name})
+                    axios.post("{{ url('admin/category/store') }}", {name: this.name, image: this.picture})
                     .then(res => {
 
                         if(res.data.success == true){
@@ -143,6 +157,8 @@
                                 icon: "success"
                             });
                             this.name = ""
+                            this.picture = ""
+                            this.imagePreview=""
                             this.fetch()
                         }else{
 
@@ -160,7 +176,7 @@
                 },
                 update(){
 
-                    axios.post("{{ url('admin/category/update') }}", {id: this.categoryId, name: this.name})
+                    axios.post("{{ url('admin/category/update') }}", {id: this.categoryId, name: this.name, image: this.picture})
                     .then(res => {
 
                         if(res.data.success == true){
@@ -172,6 +188,8 @@
                             });
                             this.name = ""
                             this.categoryId = ""
+                            this.picture = ""
+                            this.imagePreview=""
                             this.fetch()
                             
                         }else{
@@ -193,6 +211,10 @@
                     this.action = "edit"
                     this.name = category.name
                     this.categoryId = category.id
+                    this.imagePreview = "{{ url('/') }}"+"/images/categories/"+category.image
+
+                    
+
                 },
                 fetch(page = 1){
 
@@ -248,6 +270,24 @@
                         }
                     });
 
+                },
+                onImageChange(e){
+                    this.picture = e.target.files[0];
+
+                    this.imagePreview = URL.createObjectURL(this.picture);
+                    let files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+                    this.view_image = false
+                    this.createImage(files[0]);
+                },
+                createImage(file) {
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onload = (e) => {
+                        vm.picture = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
                 }
 
 

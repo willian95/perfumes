@@ -27,6 +27,7 @@ class ProductUpdateRequest extends FormRequest
             "name" => "required",
             "category" => "required|integer|exists:categories,id",
             "brand" => "required|integer|exists:brands,id",
+            "description" => "required"
         ];
     }
 
@@ -41,6 +42,7 @@ class ProductUpdateRequest extends FormRequest
             "brand.required" => "Marca del producto es requerido",
             "brand.integer" => "Marca seleccionada no es válida",
             "brand.exists" => "Marca seleccionada no es válida",
+            "description.required" => "Descripción es requerida"
 
         ];
 

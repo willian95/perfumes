@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
 use App\Category;
 
 class CategoryController extends Controller
@@ -18,8 +20,36 @@ class CategoryController extends Controller
 
         try{
 
+            $imageData = $request->get('image');
+
+            if(strpos($imageData, "svg+xml") > 0){
+
+                $data = explode( ',', $imageData);
+                $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.'."svg";
+                $ifp = fopen($fileName, 'wb' );
+                fwrite($ifp, base64_decode( $data[1] ) );
+                rename($fileName, 'images/brands/'.$fileName);
+
+            }else{
+
+                $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+                Image::make($request->get('image'))->save(public_path('images/categories/').$fileName);
+
+            }
+
+            
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Hubo un problema con la imagen", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+
+        }
+
+        try{
+
             $category = new Category;
             $category->name = $request->name;
+            $category->image = $fileName;
             $category->save();
 
             return response()->json(["success" => true, "msg" => "Categoría creada"]);
@@ -34,12 +64,44 @@ class CategoryController extends Controller
 
     function update(CategoryUpdateRequest $request){
 
+        if($request->get('image') != null){
+
+            try{
+
+                $imageData = $request->get('image');
+    
+                if(strpos($imageData, "svg+xml") > 0){
+    
+                    $data = explode( ',', $imageData);
+                    $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.'."svg";
+                    $ifp = fopen($fileName, 'wb' );
+                    fwrite($ifp, base64_decode( $data[1] ) );
+                    rename($fileName, 'images/brands/'.$fileName);
+    
+                }else{
+    
+                    $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+                    Image::make($request->get('image'))->save(public_path('images/categories/').$fileName);
+    
+                }
+    
+            }catch(\Exception $e){
+    
+                return response()->json(["success" => false, "msg" => "Hubo un problema con la imagen", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+    
+            }
+
+        }
+
         try{
 
             if(Category::where('name', $request->name)->where('id', '<>', $request->id)->count() == 0){
                 
                 $category = Category::find($request->id);
                 $category->name = $request->name;
+                if($request->get('image') != null){
+                    $category->image = $fileName;
+                }
                 $category->update();
 
                 return response()->json(["success" => true, "msg" => "Categoría actualizada"]);
