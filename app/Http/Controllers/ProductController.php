@@ -9,6 +9,9 @@ use App\Product;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use App\ProductTypeSize;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -248,6 +251,19 @@ class ProductController extends Controller
 
         }   
 
+    }
+
+    function excelExport(){
+        return Excel::download(new ProductsExport, 'productos.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new ProductsExport, 'productos.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.products');
+        return $pdf->stream();
     }
 
 }

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use App\Exports\CategoriesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use App\Category;
+use PDF;
 
 class CategoryController extends Controller
 {
@@ -170,6 +173,19 @@ class CategoryController extends Controller
 
         }
 
+    }
+
+    function excelExport(){
+        return Excel::download(new CategoriesExport, 'categorias.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new CategoriesExport, 'categorias.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.categories');
+        return $pdf->stream();
     }
 
 }

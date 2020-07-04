@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\BrandStoreRequest;
 use App\Http\Requests\BrandUpdateRequest;
+use App\Exports\BrandsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Intervention\Image\Facades\Image;
 use Carbon\Carbon;
 use App\Brand;
+use PDF;
 
 class BrandController extends Controller
 {
@@ -172,6 +175,19 @@ class BrandController extends Controller
 
         }
 
+    }
+
+    function excelExport(){
+        return Excel::download(new BrandsExport, 'marcas.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new BrandsExport, 'marcas.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.brands');
+        return $pdf->stream();
     }
 
 }

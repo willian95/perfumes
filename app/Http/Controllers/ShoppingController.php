@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Payment;
+use App\Exports\ShoppingsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class ShoppingController extends Controller
 {   
@@ -45,6 +48,19 @@ class ShoppingController extends Controller
             return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);
         }
 
+    }
+
+    function excelExport(){
+        return Excel::download(new ShoppingsExport, 'compras.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new ShoppingsExport, 'compras.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.shoppings');
+        return $pdf->stream();
     }
 
 }

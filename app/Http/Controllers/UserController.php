@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
+use PDF;
 
 class UserController extends Controller
 {
@@ -37,6 +40,19 @@ class UserController extends Controller
 
         }
 
+    }
+
+    function excelExport(){
+        return Excel::download(new UsersExport, 'clientes.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new UsersExport, 'clientes.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.clients');
+        return $pdf->stream();
     }
 
 }

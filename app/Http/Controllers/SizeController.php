@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SizeStoreRequest;
 use App\Http\Requests\SizeUpdateRequest;
 use App\Size;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SizesExport;
+use PDF;
 
 class SizeController extends Controller
 {
@@ -110,4 +113,18 @@ class SizeController extends Controller
         }
 
     }
+
+    function excelExport(){
+        return Excel::download(new SizesExport, 'tamaños.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new SizesExport, 'tamaños.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.sizes');
+        return $pdf->stream();
+    }
+
 }

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TypeStoreRequest;
 use App\Http\Requests\TypeUpdateRequest;
 use App\Type;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TypesExport;
+use PDF;
 
 class TypeController extends Controller
 {
@@ -109,6 +112,19 @@ class TypeController extends Controller
 
         }
 
+    }
+
+    function excelExport(){
+        return Excel::download(new TypesExport, 'tipos.xlsx');
+    }
+
+    function csvExport(){
+        return Excel::download(new TypesExport, 'tipos.csv');
+    }
+
+    function pdfExport(){
+        $pdf = PDF::loadView('pdf.types');
+        return $pdf->stream();
     }
 
 }
