@@ -50,9 +50,17 @@ class CategoryController extends Controller
 
         try{
 
+            $slug = str_replace(" ", "-", $request->name);
+            $slug = str_replace("/", "-", $slug);
+
+            if(Category::where("slug", $slug)->count() > 1){
+                $slug = $slug."-".uniqid();
+            }
+
             $category = new Category;
             $category->name = $request->name;
             $category->image = $fileName;
+            $category->slug = $slug;
             $category->save();
 
             return response()->json(["success" => true, "msg" => "Categoría creada"]);

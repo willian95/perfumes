@@ -52,9 +52,17 @@ class BrandController extends Controller
 
         try{
 
+            $slug = str_replace(" ", "-", $request->name);
+            $slug = str_replace("/", "-", $slug);
+
+            if(Brand::where("slug", $slug)->count() > 1){
+                $slug = $slug."-".uniqid();
+            }
+
             $brand = new Brand;
             $brand->name = $request->name;
             $brand->image = $fileName;
+            $brand->slug = $slug;
             $brand->save();
 
             return response()->json(["success" => true, "msg" => "Marca creada"]);
