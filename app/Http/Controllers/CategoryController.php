@@ -8,6 +8,7 @@ use App\Http\Requests\CategoryUpdateRequest;
 use App\Exports\CategoriesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Intervention\Image\Facades\Image;
+use App\Product;
 use Carbon\Carbon;
 use App\Category;
 use PDF;

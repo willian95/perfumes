@@ -83,7 +83,8 @@
                                 <tbody>
                                     <tr v-for="(shopping, index) in shoppings">
                                         <th>@{{ index + 1 }}</th>
-                                        <td>@{{ shopping.user.name }}</td>
+                                        <td v-if="shopping.user">@{{ shopping.user.name }}</td>
+                                        <td v-if="shopping.guest">@{{ shopping.user.name }}</td>
                                         <td>@{{ shopping.status }}</td>
                                         <td>@{{ shopping.total }}</td>
                                         <td>

@@ -15,4 +15,8 @@ class Payment extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function guest(){
+        return $this->belongsTo(App\GuestUser::class);
+    }
+
 }
