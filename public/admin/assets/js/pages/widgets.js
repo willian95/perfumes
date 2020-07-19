@@ -2482,7 +2482,7 @@ var KTWidgets = function() {
     var _initMixedWidget5 = function() {
 
         //alert("hey")
-        $.get("https://admin.aromantica.co/admin/shopping/chart", (data) => {
+        $.get("https://www.admin.aromantica.co/admin/shopping/chart", (data) => {
 
             var element = document.getElementById("kt_mixed_widget_5_chart");
             var height = parseInt(KTUtil.css(element, 'height'));
