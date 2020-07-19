@@ -377,7 +377,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach(App\Payment::with("user", "guest")->where("status", "aprobado")->orderBy('id', 'desc')->take(10)->get() as $payment)
+										@foreach(App\Payment::with("user", "guest")->where("status", "aprobado")->orderBy('id', 'desc')->take(5)->get() as $payment)
 											<tr>
 												<td class="pl-0">
 													<a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">{{ $payment->order_id }}</a>
