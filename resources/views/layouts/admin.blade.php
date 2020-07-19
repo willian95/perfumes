@@ -2845,7 +2845,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<!--begin::Topbar-->
 							<div class="topbar">
 								<!--begin::Search-->
-								<div class="topbar-item mr-3">
+								{{--<div class="topbar-item mr-3">
 									<div class="btn btn-icon btn-clean btn-lg" id="kt_quick_search_toggle">
 										<span class="svg-icon svg-icon-xl">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/General/Search.svg-->
@@ -2859,10 +2859,10 @@ License: You must have a valid license purchased only from themeforest(the above
 											<!--end::Svg Icon-->
 										</span>
 									</div>
-								</div>
+								</div>--}}
 								<!--end::Search-->
 								<!--begin::Notifications-->
-								<div class="dropdown">
+								{{--<div class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item mr-3" data-toggle="dropdown" data-offset="10px,0px">
 										<div class="btn btn-icon btn-clean btn-dropdown btn-lg pulse pulse-primary">
@@ -2879,10 +2879,10 @@ License: You must have a valid license purchased only from themeforest(the above
 											</span>
 											<span class="pulse-ring"></span>
 										</div>
-									</div>
+									</div>--}}
 									<!--end::Toggle-->
 									<!--begin::Dropdown-->
-									<div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
+									{{--<div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
 										<form>
 											<!--begin::Header-->
 											<div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url(assets/media/misc/bg-1.jpg)">
@@ -3312,10 +3312,10 @@ License: You must have a valid license purchased only from themeforest(the above
 										</form>
 									</div>
 									<!--end::Dropdown-->
-								</div>
+								</div>--}}
 								<!--end::Notifications-->
 								<!--begin::Quick Actions-->
-								<div class="dropdown">
+								{{--<div class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item mr-3" data-toggle="dropdown" data-offset="10px,0px">
 										<div class="btn btn-icon btn-clean btn-dropdown btn-lg">
@@ -3425,10 +3425,10 @@ License: You must have a valid license purchased only from themeforest(the above
 										<!--end:Nav-->
 									</div>
 									<!--end::Dropdown-->
-								</div>
+								</div>--}}
 								<!--end::Quick Actions-->
 								<!--begin::Chat-->
-								<div class="topbar-item mr-5">
+								{{--<div class="topbar-item mr-5">
 									<div class="btn btn-icon btn-clean btn-lg" data-toggle="modal" data-target="#kt_chat_modal">
 										<span class="svg-icon svg-icon-xl">
 											<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group-chat.svg-->
@@ -3442,10 +3442,10 @@ License: You must have a valid license purchased only from themeforest(the above
 											<!--end::Svg Icon-->
 										</span>
 									</div>
-								</div>
+								</div>--}}
 								<!--end::Chat-->
 								<!--begin::User-->
-								<div class="topbar-item">
+								{{--<div class="topbar-item">
 									<div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
 										<div class="d-flex flex-column text-right pr-3">
 											<span class="text-muted font-weight-bold font-size-base d-none d-md-inline">Sean</span>
@@ -3455,7 +3455,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<span class="symbol-label font-size-h5 font-weight-bold">S</span>
 										</span>
 									</div>
-								</div>
+								</div>--}}
 								<!--end::User-->
 							</div>
 							<!--end::Topbar-->
@@ -3498,7 +3498,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<!--end::Main-->
 		<!--begin::Search Panel-->
-		<div id="kt_quick_search" class="offcanvas offcanvas-right p-10">
+		{{--<div id="kt_quick_search" class="offcanvas offcanvas-right p-10">
 			<!--begin::Header-->
 			<div class="offcanvas-header d-flex align-items-center justify-content-between mb-5">
 				<h3 class="font-weight-bold m-0">Search
@@ -3511,7 +3511,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!--begin::Content-->
 			<div class="offcanvas-content">
 				<!--begin::Container-->
-				<div class="quick-search quick-search-offcanvas quick-search-has-result" id="kt_quick_search_offcanvas">
+				{{--<div class="quick-search quick-search-offcanvas quick-search-has-result" id="kt_quick_search_offcanvas">
 					<!--begin::Form-->
 					<form method="get" class="quick-search-form border-bottom pt-5 pb-1">
 						<div class="input-group">
@@ -3687,11 +3687,11 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 					</div>
 					<!--end::Wrapper-->
-				</div>
+				</div>--}}
 				<!--end::Container-->
 			</div>
 			<!--end::Content-->
-		</div>
+		</div>--}}
 		<!--end::Search Panel-->
 		<!-- begin::User Panel-->
 		<div id="kt_quick_user" class="offcanvas offcanvas-right p-10">
