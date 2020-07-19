@@ -395,7 +395,7 @@
 												@endif
 												
 												<td>
-													<span class="text-info font-weight-bolder d-block font-size-lg">{{ $payment->created_at }}</span>
+													<span class="text-info font-weight-bolder d-block font-size-lg">{{ $payment->created_at->format('d-m-Y') }}</span>
 												</td>
 												<td>
 													<span class="text-dark-75 font-weight-bolder d-block font-size-lg">$ {{ number_format($payment->total, 0, ",", ".") }}</span>
