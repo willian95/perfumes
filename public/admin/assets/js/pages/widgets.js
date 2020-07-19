@@ -2542,7 +2542,6 @@ var KTWidgets = function() {
                 },
                 yaxis: {
                     min: 0,
-                    max: 100,
                     labels: {
                         style: {
                             colors: KTApp.getSettings()['colors']['gray']['gray-500'],
