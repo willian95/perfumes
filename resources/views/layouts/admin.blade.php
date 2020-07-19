@@ -45,7 +45,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--begin::Header Mobile-->
 		<div id="kt_header_mobile" class="header-mobile header-mobile-fixed">
 			<!--begin::Logo-->
-			<a href="index.html">
+			<a href="{{ url('/admin/dashboard') }}">
 				<img alt="Logo" src="{{ asset('admin/assets/media/logos/logo-letter-3.png') }}" class="logo-default max-h-30px" />
 			</a>
 			<!--end::Logo-->
@@ -88,7 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<!--begin::Brand-->
 					<div class="aside-brand d-flex flex-column align-items-center flex-column-auto py-4 py-lg-8">
 						<!--begin::Logo-->
-						<a href="index.html">
+						<a href="{{ url('/admin/dashboard') }}">
 							<img alt="Logo" src="{{ asset('admin/assets/media/logos/logo-letter-9.png') }}" class="max-h-30px" />
 						</a>
 						<!--end::Logo-->
@@ -108,12 +108,12 @@ License: You must have a valid license purchased only from themeforest(the above
 							<!--begin::Item-->
 							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Categorías">
 								<a href="{{ url('/admin/category/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-									<i class="flaticon2-list-3 icon-lg"></i>
+									<i class="flaticon-apps"></i>
 								</a>
 							</li>
 							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Marcas">
 								<a href="{{ url('/admin/brand/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-									<i class="flaticon2-list-3 icon-lg"></i>
+									<i class="flaticon-add-label-button"></i>
 								</a>
 							</li>
 
@@ -125,13 +125,13 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Tamaños">
 								<a href="{{ url('/admin/size/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-									<i class="flaticon2-list-3 icon-lg"></i>
+									<i class="flaticon-graphic-2"></i>
 								</a>
 							</li>
 
 							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Clientes">
 								<a href="{{ url('/admin/user/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-									<i class="flaticon2-list-3 icon-lg"></i>
+									<i class="flaticon-users-1"></i>
 								</a>
 							</li>
 
@@ -141,9 +141,9 @@ License: You must have a valid license purchased only from themeforest(the above
 								</a>
 							</li>
 
-							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Compras">
+							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="´Ventas">
 								<a href="{{ url('/admin/shopping/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-									<i class="flaticon2-list-3 icon-lg"></i>
+									<i class="flaticon-coins"></i>
 								</a>
 							</li>
 							<!--end::Item-->
@@ -230,7 +230,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<!--begin::Header Menu-->
 									<div id="kt_header_menu" class="header-menu header-menu-mobile header-menu-layout-default">
 										<!--begin::Header Nav-->
-										<ul class="menu-nav">
+										{{--<ul class="menu-nav">
 											<li class="menu-item menu-item-active" aria-haspopup="true">
 												<a href="index.html" class="menu-link">
 													<span class="menu-text">Dashboard</span>
@@ -2834,7 +2834,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													</div>
 												</div>
 											</li>
-										</ul>
+										</ul>--}}
 										<!--end::Header Nav-->
 									</div>
 									<!--end::Header Menu-->

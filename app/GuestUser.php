@@ -8,8 +8,8 @@ class GuestUser extends Model
 {
     protected $table="guest_users";
 
-    public function shoppings(){
-        return $this->hasMany(App\GuestUser::class);
+    public function payments(){
+        return $this->hasMany(App\Payment::class);
     }
 
 }

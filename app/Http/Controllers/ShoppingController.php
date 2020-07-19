@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Payment;
 use App\Exports\ShoppingsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+use DB;
 use PDF;
 
 class ShoppingController extends Controller
@@ -22,8 +24,8 @@ class ShoppingController extends Controller
 
             $skip = ($page - 1) * 20;
 
-            $shoppings = Payment::with("productPurchases", "user", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->skip($skip)->take(20)->get();
-            $shoppingsCount = Payment::with("productPurchases", "user", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.size")->count();
+            $shoppings = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->skip($skip)->take(20)->get();
+            $shoppingsCount = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.size")->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);
 
@@ -61,6 +63,37 @@ class ShoppingController extends Controller
     function pdfExport(){
         $pdf = PDF::loadView('pdf.shoppings');
         return $pdf->stream();
+    }
+
+    function chart(){
+
+        try{
+
+            $paymentsByDate = [];
+            $paymentDates = [];
+
+            $startDate = Carbon::now()->subMonths(3)->firstOfMonth();
+            $now = Carbon::now();
+
+            $payments = Payment::where("status", "aprobado")->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as payments'))
+            ->groupBy('date')
+            ->get();
+
+            foreach($payments as $payment){
+
+                array_push($paymentsByDate, $payment->payments);
+                array_push($paymentDates, $payment->date);
+
+            }
+            
+            return response()->json(["success" => true, "paymentsByDate" => $paymentsByDate, "paymentDates" => $paymentDates]);
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "err" => $e->getMessage(), "ln" => $e->getLine()]);
+
+        }
+
     }
 
 }

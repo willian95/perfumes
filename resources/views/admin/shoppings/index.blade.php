@@ -84,7 +84,7 @@
                                     <tr v-for="(shopping, index) in shoppings">
                                         <th>@{{ index + 1 }}</th>
                                         <td v-if="shopping.user">@{{ shopping.user.name }}</td>
-                                        <td v-if="shopping.guest">@{{ shopping.user.name }}</td>
+                                        <td v-if="shopping.guest">@{{ shopping.guest.name }}</td>
                                         <td>@{{ shopping.status }}</td>
                                         <td>@{{ shopping.total }}</td>
                                         <td>
@@ -139,35 +139,37 @@
                         <div class="modal-body" v-if="shopping != ''">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Cliente</label>
-                                    <p>@{{ shopping.user.name }}</p>
+                                    <label><strong>Cliente</strong></label>
+                                    <p v-if="shopping.user">@{{ shopping.user.name }}</p>
+                                    <p v-if="shopping.guest">@{{ shopping.guest.name }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Email</label>
-                                    <p>@{{ shopping.user.email }}</p>
+                                    <label><strong>Email</strong></label>
+                                    <p v-if="shopping.user">@{{ shopping.user.email }}</p>
+                                    <p v-if="shopping.guest">@{{ shopping.guest.email }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Costo productos</label>
-                                    <p>@{{ shopping.total_products }}</p>
+                                    <label><strong>Costo productos</strong></label>
+                                    <p>@{{ parseFloat(shopping.total_products).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Costo envío</label>
-                                    <p>@{{ shopping.shipping_cost }}</p>
+                                    <label><strong>Costo envío</strong></label>
+                                    <p>@{{ parseFloat(shopping.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Total</label>
-                                    <p>@{{ shopping.total }}</p>
+                                    <label><strong>Total</strong></label>
+                                    <p>@{{ parseFloat(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Tracking</label>
-                                    <p>@{{ shopping.tracking }}</p>
+                                    <label><strong>Tracking</strong></label>
+                                    <a :href="shopping.tracking_url">@{{ shopping.tracking }}</a>
                                 </div>
-                                <div class="col-md-6">
+                                <!--<div class="col-md-6">
                                     <label>Status tracing</label>
                                     <p>@{{ shopping.status_shipping }}</p>
-                                </div>
+                                </div>-->
                                 <div class="col-md-6">
-                                    <label>Dirección</label>
+                                    <label><strong>Dirección</strong></label>
                                     <p>@{{ shopping.address }}</p>
                                 </div>
                                 <div class="col-md-12">
@@ -179,7 +181,6 @@
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Precio</th>
-                                                <th>Costo envío</th>
                                                 <th>Tipo</th>
                                                 <th>Tamaño</th>
                                             </tr>
@@ -187,8 +188,7 @@
                                         <tbody>
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
                                                 <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
-                                                <td>@{{ shoppingPurchase.price }}</td>
-                                                <td>@{{ shoppingPurchase.shipping_cost }}</td>
+                                                <td>@{{ parseFloat(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
                                             </tr>

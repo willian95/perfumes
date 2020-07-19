@@ -92,5 +92,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/admin/shopping/pdf", "ShoppingController@pdfExport");
     Route::get("/admin/shopping/csv", "ShoppingController@csvExport");
 
+    Route::get("/admin/shopping/chart", "ShoppingController@chart");
+
 });
 
