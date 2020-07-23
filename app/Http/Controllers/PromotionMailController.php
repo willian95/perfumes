@@ -23,7 +23,7 @@ class PromotionMailController extends Controller
 
             $skip = ($page - 1) * 20;
 
-            $promotions = PromotionMail::skip($skip)->take(20)->get();
+            $promotions = PromotionMail::skip($skip)->take(20)->orderBy("id", "desc")->get();
             $promotionsCount = PromotionMail::count();
 
             return response()->json(["success" => true, "promotions" => $promotions, "promotionsCount" => $promotionsCount]);
