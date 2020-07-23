@@ -141,6 +141,12 @@ License: You must have a valid license purchased only from themeforest(the above
 								</a>
 							</li>
 
+							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="Mails promocionales">
+								<a href="{{ url('/admin/promotions/mail/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
+									<i class="flaticon2-list-3 icon-lg"></i>
+								</a>
+							</li>
+
 							<li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window" title="´Ventas">
 								<a href="{{ url('/admin/shopping/index') }}" class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
 									<i class="flaticon-coins"></i>
