@@ -94,5 +94,9 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get("/admin/shopping/chart", "ShoppingController@chart");
 
+    Route::get("/admin/promotions/mail/index", "PromotionMailController@index");
+    Route::get("/admin/promotions/mail/fetch/{page}", "PromotionMailController@fetch");
+    Route::post("/admin/promotions/mail/store", "PromotionMailController@store");
+
 });
 
