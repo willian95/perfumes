@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PromotionMail;
 use App\Http\Requests\PromotionMailRequest;
+use App\User;
+use App\GuestUser;
 
 class PromotionMailController extends Controller
 {
@@ -46,16 +48,39 @@ class PromotionMailController extends Controller
             $promotion->link = $request->link;
             $promotion->save();
 
-            $to_name = "Willian";
-            $to_email = "rodriguezwillian95@gmail.com";
-            $data = ["title" => $request->title, "body" => $request->description, "link" => $request->link];
+            $users = User::where("role_id", 2)->get();
 
-            \Mail::send("emails.promotion", $data, function($message) use ($to_name, $to_email, $request) {
+            foreach($users as $user){
 
-                $message->to($to_email, $to_name)->subject($request->title);
-                $message->from("ventas@aromantica.co", env("MAIL_FROM_NAME"));
+                $to_name = $user->name;
+                $to_email = $user->email;
+                $data = ["title" => $request->title, "body" => $request->description, "link" => $request->link];
 
-            });
+                \Mail::send("emails.promotion", $data, function($message) use ($to_name, $to_email, $request) {
+
+                    $message->to($to_email, $to_name)->subject($request->title);
+                    $message->from("ventas@aromantica.co", env("MAIL_FROM_NAME"));
+
+                });
+
+            }
+
+            $guests = GuestUser::all();
+
+            foreach($guests as $guest){
+
+                $to_name = $guest->name;
+                $to_email = $guest->email;
+                $data = ["title" => $request->title, "body" => $request->description, "link" => $request->link];
+
+                \Mail::send("emails.promotion", $data, function($message) use ($to_name, $to_email, $request) {
+
+                    $message->to($to_email, $to_name)->subject($request->title);
+                    $message->from("ventas@aromantica.co", env("MAIL_FROM_NAME"));
+
+                });
+
+            }
 
             return response()->json(["success" => true, "msg" => "Email de promoción creado"]);
 
