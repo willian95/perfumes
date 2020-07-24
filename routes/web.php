@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
-Route::get("/login", "LoginController@index");
+Route::get("/", "LoginController@index");
 Route::post("/login", "LoginController@login");
 
 Route::middleware(['admin'])->group(function () {
