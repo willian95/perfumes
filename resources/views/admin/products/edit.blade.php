@@ -55,14 +55,15 @@
                                     <div class="form-group">
                                         <label for="image">Imágen</label>
                                         <input type="file" class="form-control" ref="file" @change="onImageChange" accept="image/*">
+
+                                        <img id="blah" :src="'{{ url('/') }}'+'/images/products/'+imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            <img id="blah" :src="'{{ url('/') }}'+'/images/products/'+imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
-                                        </div>
+                                        <label for="video">video</label>
+                                        <input type="file" class="form-control" @change="onVideoChange" accept="video/*">
                                     </div>
                                 </div>
 
@@ -229,7 +230,8 @@
                     pages:0,
                     page:1,
                     edit:false,
-                    productTypeIndex:""
+                    productTypeIndex:"",
+                    video:""
                 }
             },
             methods:{
@@ -422,7 +424,24 @@
                         }
                     })
 
-                }
+                },
+                onVideoChange(e){
+                    this.video = e.target.files[0];
+
+                    let files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+          
+                    this.createVideo(files[0]);
+                },
+                createVideo(file) {
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onload = (e) => {
+                        vm.video = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                },
 
 
             },

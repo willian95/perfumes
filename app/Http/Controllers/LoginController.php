@@ -10,7 +10,7 @@ use App\User;
 class LoginController extends Controller
 {
     function index(){
-        return view("user.login");
+        return view("loginpage");
     }
 
     function login(LoginRequest $request){
@@ -33,4 +33,12 @@ class LoginController extends Controller
         }
 
     }
+
+    function logout(){
+
+        Auth::logout();
+        return redirect()->to('/');
+
+    }
+
 }

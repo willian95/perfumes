@@ -58,6 +58,36 @@ class ProductController extends Controller
 
         try{
 
+            if($request->get("video") != null){
+                
+                $videoData = $request->get('video');
+               
+                if(explode('/', explode(':', substr($videoData, 0, strpos($videoData, ';')))[1])[0] == "video"){
+                    
+                    $data = explode( ',', $videoData);
+                    $fileVideo = Carbon::now()->timestamp . '_' . uniqid() . '.'.explode('/', explode(':', substr($videoData, 0, strpos($videoData, ';')))[1])[1];
+                    $ifp = fopen($fileVideo, 'wb' );
+                    fwrite($ifp, base64_decode( $data[1] ) );
+                    rename($fileVideo, 'videos/'.$fileVideo);
+                }
+                //}else{
+
+                //$videoName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($videoData, 0, strpos($videoData, ';')))[1])[1];
+                //Image::make($request->get('video'))->save(public_path('videos/').$videoName);
+
+                //}
+
+            }
+            
+
+        }catch(\Exception $e){
+            
+            return response()->json(["success" => false, "msg" => "Hubo un problema con la imagen", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+
+        }
+
+        try{
+
             $slug = str_replace(" ","-", $request->name);
             $slug = str_replace("/", "-", $slug);
 
@@ -71,6 +101,9 @@ class ProductController extends Controller
             $product->brand_id = $request->brand;
             $product->description = $request->description;
             $product->image = $fileName;
+            if($request->get("video") != null){
+                $product->video = $fileVideo; 
+            }
             $product->slug = $slug;
             $product->save();
 
@@ -89,7 +122,7 @@ class ProductController extends Controller
             return response()->json(["success" => true, "msg" => "Producto creado"]);
 
         }catch(\Exception $e){
-            return response()->json(["success" => true, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);
+            return response()->json(["success" => true, "false" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);
         }
 
     }

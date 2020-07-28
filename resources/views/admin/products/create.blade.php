@@ -55,16 +55,18 @@
                                     <div class="form-group">
                                         <label for="image">Imágen</label>
                                         <input type="file" class="form-control" ref="file" @change="onImageChange" accept="image/*">
+
+                                        <img id="blah" :src="imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            <img id="blah" :src="imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
-                                        </div>
+                                        <label for="video">video</label>
+                                        <input type="file" class="form-control" @change="onVideoChange" accept="video/*">
                                     </div>
                                 </div>
+
 
                             </div>
                             <div class="row">
@@ -210,6 +212,7 @@
                     category:"",
                     brand:"",
                     name:"",
+                    video:"",
                     description:"",
                     imagePreview:"",
                     action:"create",
@@ -222,7 +225,7 @@
                 store(){
 
                     if(this.productSizeTypes.length > 0){
-                        axios.post("{{ url('/admin/product/store') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, description: this.description}).then(res => {
+                        axios.post("{{ url('/admin/product/store') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, description: this.description, video: this.video}).then(res => {
 
                             if(res.data.success == true){
 
@@ -236,6 +239,7 @@
                                 
 
                             }else{
+                               
                                 alert(res.data.msg)
                             }
 
@@ -271,6 +275,23 @@
                     let vm = this;
                     reader.onload = (e) => {
                         vm.picture = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                },
+                onVideoChange(e){
+                    this.video = e.target.files[0];
+
+                    let files = e.target.files || e.dataTransfer.files;
+                    if (!files.length)
+                        return;
+          
+                    this.createVideo(files[0]);
+                },
+                createVideo(file) {
+                    let reader = new FileReader();
+                    let vm = this;
+                    reader.onload = (e) => {
+                        vm.video = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 },
