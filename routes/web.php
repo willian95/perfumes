@@ -19,11 +19,10 @@ Route::get("/", "LoginController@index");
 Route::post("/login", "LoginController@login");
 
 Route::middleware(['admin'])->group(function () {
-    
-    Route::get("/admin/dashboard", function(){
+
+    Route::get("/admin/dashboard", function () {
 
         return view("admin.index");
-    
     });
 
     Route::get("/admin/category/index", "CategoryController@index");
@@ -97,6 +96,4 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/admin/promotions/mail/index", "PromotionMailController@index");
     Route::get("/admin/promotions/mail/fetch/{page}", "PromotionMailController@fetch");
     Route::post("/admin/promotions/mail/store", "PromotionMailController@store");
-
 });
-

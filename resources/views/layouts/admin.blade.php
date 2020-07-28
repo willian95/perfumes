@@ -2962,7 +2962,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                     <div><a href="#"> <i class="flaticon-users-1"></i></a>
                                         <ul class="dropdown">
-                                            <li><a href="#">Cerrar</a></li>
+                                            <li><a href="#">Logout </a></li>
                                         </ul>
                                     </div>
 
