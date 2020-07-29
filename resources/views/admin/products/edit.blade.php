@@ -244,7 +244,7 @@
                 
                 update(){
                     this.loading = true
-                    axios.post("{{ url('/admin/product/update') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, id: this.productId, description: this.description}).then(res => {
+                    axios.post("{{ url('/admin/product/update') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, id: this.productId, description: this.description, video: this.video}).then(res => {
 
                         this.loading = false
                         if(res.data.success == true){
