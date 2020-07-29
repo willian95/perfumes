@@ -53,7 +53,7 @@ class BannerController extends Controller
             $banner->big_text = $request->bigText;
             $banner->update();
 
-            return response()->json(["success" => true, "msg" => "Banne actualizado"]);
+            return response()->json(["success" => true, "msg" => "Banner actualizado"]);
 
         }catch(\Exception $e){
             return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln"=> $e->getLine()]);
