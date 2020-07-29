@@ -3,6 +3,11 @@
 @section("content")
     
     <div id="dev-category">
+
+        <div class="elipse" v-if="loading == true">
+            <img class="logo-f" src="{{ asset('assets/img/logoLoader.png') }}" alt="">
+        </div>
+
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
@@ -92,15 +97,17 @@
                     type:"{{ $type }}",
                     imagePreview:"{{ url('/') }}"+"/images/banners/"+"{{ $image }}",
                     smallText:"{{ $smallText }}",
-                    bigText:"{{ $bigText }}"
+                    bigText:"{{ $bigText }}",
+                    loading:false
                 }
             },
             methods:{
                 
                 update(){
 
+                    this.loading = true
                     axios.post("{{ url('/admin/banner/update') }}", {smallText:this.smallText, bigText: this.bigText, image: this.image}).then(res => {
-
+                        this.loading = false
                         if(res.data.success == true){
 
                             swal({
@@ -116,9 +123,10 @@
                         }
 
                         }).catch(err => {
-                        $.each(err.response.data.errors, function(key, value){
-                            alert(value)
-                        });
+                            this.loading = false
+                            $.each(err.response.data.errors, function(key, value){
+                                alert(value)
+                            });
                     })                    
 
                 },

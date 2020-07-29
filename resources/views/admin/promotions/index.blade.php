@@ -3,6 +3,11 @@
 @section("content")
     
     <div id="dev-promotion">
+
+        <div class="elipse" v-if="loading == true">
+            <img class="logo-f" src="{{ asset('assets/img/logoLoader.png') }}" alt="">
+        </div>
+
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
@@ -130,7 +135,8 @@
                     link:"",
                     promotions:[],
                     pages:0,
-                    page:1,                 
+                    page:1, 
+                    loading:false                
                 }
             },
             methods:{
@@ -141,10 +147,10 @@
                     this.brandId = ""
                 },
                 store(){
-
+                    this.loading = true
                     axios.post("{{ url('/admin/promotions/mail/store') }}", {title: this.title, description: this.description, link: this.link})
                     .then(res => {
-
+                        this.loading = false
                         if(res.data.success == true){
 
                             swal({
@@ -171,6 +177,7 @@
 
                     })
                     .catch(err => {
+                        this.loading = false
                         $.each(err.response.data.errors, function(key, value){
                             alert(value)
                         });
@@ -206,9 +213,9 @@
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            
+                            this.loading = true
                             axios.post("{{ url('/admin/brand/delete/') }}", {id: id}).then(res => {
-
+                                this.loading = false
                                 if(res.data.success == true){
                                     swal({
                                         title: "Genial!",
@@ -223,6 +230,7 @@
                                 }
 
                             }).catch(err => {
+                                this.loading = false
                                 $.each(err.response.data.errors, function(key, value){
                                     alert(value)
                                 });

@@ -3,6 +3,11 @@
 @section("content")
     
     <div id="dev-category">
+        
+        <div class="elipse" v-if="loading == true">
+            <img class="logo-f" src="{{ asset('assets/img/logoLoader.png') }}" alt="">
+        </div>
+
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
@@ -217,7 +222,8 @@
                     imagePreview:"",
                     action:"create",
                     pages:0,
-                    page:1
+                    page:1,
+                    loading:false
                 }
             },
             methods:{
@@ -225,8 +231,9 @@
                 store(){
 
                     if(this.productSizeTypes.length > 0){
+                        this.loading = true
                         axios.post("{{ url('/admin/product/store') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, description: this.description, video: this.video}).then(res => {
-
+                            this.loading = false
                             if(res.data.success == true){
 
                                 swal({
@@ -244,6 +251,7 @@
                             }
 
                             }).catch(err => {
+                                this.loading = false
                             $.each(err.response.data.errors, function(key, value){
                                 alert(value)
                             });

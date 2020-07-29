@@ -3,6 +3,11 @@
 @section("content")
     
     <div id="dev-category">
+
+        <div class="elipse" v-if="loading == true">
+            <img class="logo-f" src="{{ asset('assets/img/logoLoader.png') }}" alt="">
+        </div>
+
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
@@ -231,15 +236,17 @@
                     page:1,
                     edit:false,
                     productTypeIndex:"",
-                    video:""
+                    video:"",
+                    loading:false
                 }
             },
             methods:{
                 
                 update(){
-
+                    this.loading = true
                     axios.post("{{ url('/admin/product/update') }}", {name:this.name, brand: this.brand, category: this.category, image: this.picture, productSizeTypes: this.productSizeTypes, id: this.productId, description: this.description}).then(res => {
 
+                        this.loading = false
                         if(res.data.success == true){
 
                             swal({

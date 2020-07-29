@@ -42,6 +42,49 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{ asset('assets/img/1Logo.png') }}" />
 
+    <style>
+        .elipse {
+            background: #fff;
+            position: fixed;
+            z-index: 9999999;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .elipse img {
+            opacity: 0.3;
+            width: 25rem;
+            position: absolute;
+            animation-name: colombia;
+            animation-duration: 2s;
+            /* or: Xms */
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            /* or: normal */
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+            /* or: backwards, both, none */
+            animation-delay: 1s;
+        }
+
+        @-webkit-keyframes colombia {
+            0% {
+                opacity: 0.3;
+            }
+
+            100% {
+                opacity: 0.8;
+            }
+        }
+
+    </style>
+
 </head>
 <!--end::Head-->
 <!--begin::Body-->

@@ -3,6 +3,11 @@
 @section("content")
     
     <div id="dev-category">
+
+        <div class="elipse" v-if="loading == true">
+            <img class="logo-f" src="{{ asset('assets/img/logoLoader.png') }}" alt="">
+        </div>
+
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
@@ -186,6 +191,7 @@
                     pages:0,
                     page:1,
                     showMenu:false,
+                    loading:false
                 }
             },
             methods:{
@@ -198,9 +204,10 @@
                 },
                 store(){
 
+                    this.loading = true
                     axios.post("{{ url('admin/category/store') }}", {name: this.name, image: this.picture})
                     .then(res => {
-
+                        this.loading = false
                         if(res.data.success == true){
 
                             swal({
@@ -220,6 +227,7 @@
 
                     })
                     .catch(err => {
+                        this.loading = false
                         $.each(err.response.data.errors, function(key, value){
                             alert(value)
                         });
@@ -228,9 +236,10 @@
                 },
                 update(){
 
+                    this.loading = true
                     axios.post("{{ url('admin/category/update') }}", {id: this.categoryId, name: this.name, image: this.picture})
                     .then(res => {
-
+                        this.loading = false
                         if(res.data.success == true){
 
                             swal({
@@ -252,6 +261,7 @@
 
                     })
                     .catch(err => {
+                        this.loading = false
                         $.each(err.response.data.errors, function(key, value){
                             alert(value)
                         });
@@ -287,7 +297,7 @@
 
                 },
                 erase(id){
-
+                    
                     swal({
                         title: "¿Estás seguro?",
                         text: "Eliminarás esta categoría!",
@@ -297,9 +307,9 @@
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            
+                            this.loading = true
                             axios.post("{{ url('/admin/category/delete/') }}", {id: id}).then(res => {
-
+                                this.loading = false
                                 if(res.data.success == true){
                                     swal({
                                         title: "Genial!",
@@ -314,6 +324,7 @@
                                 }
 
                             }).catch(err => {
+                                this.loading = false
                                 $.each(err.response.data.errors, function(key, value){
                                     alert(value)
                                 });

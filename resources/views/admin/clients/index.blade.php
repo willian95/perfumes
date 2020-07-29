@@ -3,6 +3,7 @@
 @section("content")
     
     <div id="dev-category">
+
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content" v-cloak>
             <div class="d-flex flex-column-fluid">
 
@@ -153,7 +154,7 @@
                     users:[],
                     pages:0,
                     page:1,
-                    showMenu:false
+                    showMenu:false,
                 }
             },
             methods:{
