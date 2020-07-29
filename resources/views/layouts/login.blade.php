@@ -105,6 +105,8 @@
         border: none;
         background: #0d3c66;
         width: 114px;
+
+        font-family: inherit !important;
     }
 
     .login_admin button:hover {
@@ -250,7 +252,7 @@
         width: 100%;
         padding-left: 6px;
         left: 0;
-        top: 30px;
+        top: 5px;
         -webkit-transition: all 0.4s;
         -o-transition: all 0.4s;
         -moz-transition: all 0.4s;
@@ -260,7 +262,7 @@
     .input100 {
         display: block;
         width: 100%;
-        background: transparent;
+        background: #fff;
 
         font-size: 18px;
         color: #555555;
@@ -274,6 +276,7 @@
         -o-transition: all 0.4s;
         -moz-transition: all 0.4s;
         transition: all 0.4s;
+        background: #ffff;
     }
 
     /*---------------------------------------------*/
