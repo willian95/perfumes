@@ -177,7 +177,15 @@ License: You must have a valid license purchased only from themeforest(the above
                             data-boundary="window" title="Banner">
                             <a href="{{ url('/admin/banner/index') }}"
                                 class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-                                <i class="flaticon2-list-3 icon-lg"></i>
+                                <i class="flaticon-add-label-button icon-lg"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
+                            data-boundary="window" title="Productos Top">
+                            <a href="{{ url('/admin/top-product/index') }}"
+                                class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
+                                <i class="flaticon-black icon-lg"></i>
                             </a>
                         </li>
 
@@ -238,7 +246,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--begin::Footer-->
                 <div class="aside-footer d-flex flex-column align-items-center flex-column-auto py-8">
                     <!--begin::Quick Panel-->
-                    <a href="#" class="btn btn-icon btn-clean btn-lg mb-1" id="kt_quick_panel_toggle"
+                    {{--<a href="#" class="btn btn-icon btn-clean btn-lg mb-1" id="kt_quick_panel_toggle"
                         data-toggle="tooltip" data-placement="right" data-container="body" data-boundary="window"
                         title="Quick Panel">
                         <span class="svg-icon svg-icon-xl">
@@ -255,7 +263,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </svg>
                             <!--end::Svg Icon-->
                         </span>
-                    </a>
+                    </a>--}}
                     <!--end::Quick Panel-->
                 </div>
                 <!--end::Footer-->

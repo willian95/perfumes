@@ -98,8 +98,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/admin/promotions/mail/fetch/{page}", "PromotionMailController@fetch");
     Route::post("/admin/promotions/mail/store", "PromotionMailController@store");
 
-    Route::get("/admin/banner/index", "TopProductController@index");
-    Route::post("/admin/banner/update", "TopProductController@update");
+    Route::get("/admin/banner/index", "BannerController@index");
+    Route::post("/admin/banner/update", "BannerController@update");
 
     Route::get("/admin/top-product/index", "TopProductController@index");
     Route::get("/admin/top-product/fetch", "TopProductController@fetch");
