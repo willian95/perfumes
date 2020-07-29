@@ -13,30 +13,44 @@ class BannerController extends Controller
 
     function index(){
 
-        return view('admin.banner.index', ["image" => Banner::find(1)->image, "smallText" => Banner::find(1)->small_text, "bigText" => Banner::find(1)->big_text]);
+        return view('admin.banner.index', ["image" => Banner::find(1)->image, "smallText" => Banner::find(1)->small_text, "bigText" => Banner::find(1)->big_text, "type" => Banner::find(1)->type]);
 
     }
 
     function update(UpdateBannerRequest $request){
 
         try{
-
+            $type = "";
             try{
 
                 $imageData = $request->get('image');
+
+                if(explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[0] == "video"){
+                    
+                    $data = explode( ',', $imageData);
+                    $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.'.explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+                    $ifp = fopen($fileName, 'wb' );
+                    fwrite($ifp, base64_decode( $data[1] ) );
+                    rename($fileName, 'images/banners/'.$fileName);
+                    $type = "video";
+                }
     
-                if(strpos($imageData, "svg+xml") > 0){
+                else if(strpos($imageData, "svg+xml") > 0){
     
                     $data = explode( ',', $imageData);
                     $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.'."svg";
                     $ifp = fopen($fileName, 'wb' );
                     fwrite($ifp, base64_decode( $data[1] ) );
                     rename($fileName, 'images/banners/'.$fileName);
+
+                    $type = "image";
     
                 }else{
     
                     $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
                     Image::make($request->get('image'))->save(public_path('images/banners/').$fileName);
+
+                    $type = "image";
     
                 }
     
@@ -51,6 +65,7 @@ class BannerController extends Controller
             $banner->image = $fileName;
             $banner->small_text = $request->smallText;
             $banner->big_text = $request->bigText;
+            $banner->type = $type;
             $banner->update();
 
             return response()->json(["success" => true, "msg" => "Banner actualizado"]);

@@ -36,10 +36,18 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="image">Imágen</label>
-                                        <input type="file" class="form-control" ref="file" @change="onImageChange" accept="image/*">
+                                        <label for="image">Imágen o video</label>
+                                        <input type="file" class="form-control" ref="file" @change="onImageChange" accept="image/*|video/*">
+                                        @if($type == "image")
+                                            <img id="blah" src="{{ env('CMS_URL').'/images/banners/'.App\Banner::find(1)->image }}" class="full-image" style="margin-top: 10px; width: 40%">
+                                        @else
 
-                                        <img id="blah" :src="imagePreview" class="full-image" style="margin-top: 10px; width: 40%">
+                                        <video loop style="width: 100%;" autoplay="true" muted="muted">
+                                            <source src="{{ env('CMS_URL').'/images/banners/'.App\Banner::find(1)->image }}" type="video/mp4">
+                                        </video>
+
+                                        @endif
+                                        
                                     </div>
                                 </div>
 
@@ -81,6 +89,7 @@
             data(){
                 return{
                     image:"",
+                    type:"{{ $type }}",
                     imagePreview:"{{ url('/') }}"+"/images/banners/"+"{{ $image }}",
                     smallText:"{{ $smallText }}",
                     bigText:"{{ $bigText }}"

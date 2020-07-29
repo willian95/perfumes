@@ -134,18 +134,26 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
 
                         <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                            data-boundary="window" title="Tipo de fragancia">
+                            data-boundary="window" title="Tipo de Fragancia">
                             <a href="{{ url('/admin/type/index') }}"
                                 class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-                                <i class="flaticon2-list-3 icon-lg"></i>
+                                <i class="flaticon2-hourglass-1 icon-lg"></i>
                             </a>
                         </li>
 
                         <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                            data-boundary="window" title="Tamaños">
+                            data-boundary="window" title="Tamaños/Presentaciones">
                             <a href="{{ url('/admin/size/index') }}"
                                 class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
                                 <i class="flaticon-graphic-2"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
+                            data-boundary="window" title="Productos">
+                            <a href="{{ url('/admin/product/index') }}"
+                                class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
+                                <i class="fas fa-wine-bottle icon-lg"></i>
                             </a>
                         </li>
 
@@ -158,26 +166,18 @@ License: You must have a valid license purchased only from themeforest(the above
                         </li>
 
                         <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                            data-boundary="window" title="Productos">
-                            <a href="{{ url('/admin/product/index') }}"
-                                class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-                                <i class="flaticon2-list-3 icon-lg"></i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                            data-boundary="window" title="Mails promocionales">
+                            data-boundary="window" title="Mails Promocionales">
                             <a href="{{ url('/admin/promotions/mail/index') }}"
                                 class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-                                <i class="flaticon2-list-3 icon-lg"></i>
+                                <i class="fas fa-mail-bulk icon-lg"></i>
                             </a>
                         </li>
 
                         <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                            data-boundary="window" title="Banner">
+                            data-boundary="window" title="Banners">
                             <a href="{{ url('/admin/banner/index') }}"
                                 class="nav-link btn btn-icon btn-text-white btn-hover-text-white btn-lg">
-                                <i class="flaticon-add-label-button icon-lg"></i>
+                                <i class="fas fa-photo-video icon-lg"></i>
                             </a>
                         </li>
 
@@ -387,18 +387,18 @@ License: You must have a valid license purchased only from themeforest(the above
 								<!--begin::Quick Actions-->
 								<div class="dropdown" >
 									<!--begin::Toggle-->
-									<div class="topbar-item mr-3" data-toggle="dropdown" data-offset="10px,0px" onclick="toggleUserOptions()">
+									<div class="topbar-item mr-3" onclick="toggleUserOptions()">
 										<div class="btn btn-icon btn-clean btn-dropdown btn-lg">
 											<i class="flaticon2-user"></i>
 										</div>
 									</div>
 									<!--end::Toggle-->
 									<!--begin::Dropdown-->
-									<div id="user-options-menu" class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-299px, 49px, 0px);">
+									<div id="user-options-menu" class="dropdown-menu" style="margin-left: -60px; padding-left: 1rem; padding-bottom: 1rem;">
 										<!--begin:Header-->
-										<div class="d-flex flex-column flex-center py-10 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url(assets/media/misc/bg-1.jpg)">
+										
 											<a href="{{ url('/logout') }}" class="btn btn-success btn-sm font-weight-bold font-size-sm mt-2">Cerrar sesión</a>
-										</div>
+										
 										<!--end:Nav-->
 									</div>
 									<!--end::Dropdown-->
