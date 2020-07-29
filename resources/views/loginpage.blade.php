@@ -12,7 +12,7 @@
             </div>
             <div class="login100-form validate-form col-md-6">
                 <span class="login100-form-title p-b-43">
-                    <img class="logo-admin" src="http://imgfz.com/i/0tkLDsf.png" alt="">
+                    <img class="logo-admin" src="https://imgfz.com/i/0tkLDsf.png" alt="">
                 </span>
 
 
