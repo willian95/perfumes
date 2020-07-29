@@ -2063,7 +2063,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
                 <!--end::Tabpane-->
                 <!--begin::Tabpane-->
-                <div class="tab-pane fade pt-3 pr-5 mr-n5" id="kt_quick_panel_settings" role="tabpanel">
+                {{--<div class="tab-pane fade pt-3 pr-5 mr-n5" id="kt_quick_panel_settings" role="tabpanel">
                     <form class="form">
                         <!--begin::Section-->
                         <div>
@@ -2182,7 +2182,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <!--end::Section-->
                     </form>
-                </div>
+                </div>--}}
                 <!--end::Tabpane-->
             </div>
         </div>
@@ -2511,7 +2511,7 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
     <!--end::Scrolltop-->
     <!--begin::Sticky Toolbar-->
-    <ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
+    {{--<ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
         <!--begin::Item-->
         <li class="nav-item mb-2" id="kt_demo_panel_toggle" data-toggle="tooltip" title="Check out more demos"
             data-placement="right">
@@ -2545,7 +2545,7 @@ License: You must have a valid license purchased only from themeforest(the above
             </a>
         </li>
         <!--end::Item-->
-    </ul>
+    </ul>--}}
     <!--end::Sticky Toolbar-->
     <!--begin::Demo Panel-->
     <div id="kt_demo_panel" class="offcanvas offcanvas-right p-10">
