@@ -29,6 +29,7 @@ class ProductController extends Controller
     }
 
     function store(ProductStoreRequest $request){
+        ini_set('max_execution_time', 0);
 
         try{
 
@@ -128,6 +129,7 @@ class ProductController extends Controller
     }
 
     function update(ProductUpdateRequest $request){
+        ini_set('max_execution_time', 0);
 
         if($request->get("image") != null){
 

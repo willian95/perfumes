@@ -19,6 +19,8 @@ class BannerController extends Controller
 
     function update(UpdateBannerRequest $request){
 
+        ini_set('max_execution_time', 0);
+
         try{
             $type = "";
             try{
