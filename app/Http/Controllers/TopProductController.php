@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests\TopProductStoreRequest;
+use App\TopProduct;
+use App\Product;
+
+class TopProductController extends Controller
+{
+    
+    function index(){
+        return view('admin.topProduct.index');
+    }
+
+    function store(TopProductStoreRequest $request){
+
+        try{
+
+            $topProduct = new TopProduct;
+            $topProduct->product_id = $request->product_id;
+            $topProduct->save();
+
+            return response()->json(["success" => true, "msg"=>"Producto añadido"]);
+
+        }catch(\Exception $e){
+            return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln"=> $e->getLine()]);
+        }
+
+    }
+
+    function search(Request $request){
+
+        $products = Product::where("name", "like", "%".$request->search."%")->take(20)->get();
+        return response()->json(["products" => $products]);
+
+    }
+
+    function fetch(){
+
+        try{
+
+            $products = TopProduct::with("product")->get();
+            return response()->json(["success" => true, "products" => $products]);
+
+        }catch(\Exception $e){
+            return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln"=> $e->getLine()]);
+        }
+
+    }
+
+    function delete(Request $request){
+
+        try{
+
+            $product = TopProduct::where("id", $request->id)->first();
+            $product->delete();
+
+            return response()->json(["success" => true, "msg" => "Producto top eliminado"]);
+
+        }catch(\Exception $e){
+            return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln"=> $e->getLine()]);
+        }
+
+    }
+
+}
