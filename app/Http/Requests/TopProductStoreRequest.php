@@ -24,7 +24,7 @@ class TopProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "product_id" => "required|unique:top_products,product_id|exists:products,id"
+            "product_id" => "required|unique:top_products,product_type_size_id|exists:product_type_sizes,id"
         ];
     }
 

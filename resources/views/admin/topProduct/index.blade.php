@@ -32,7 +32,7 @@
                                             <!--end::Symbol-->
                                             <!--begin::Text-->
                                             <div class="d-flex flex-column font-weight-bold">
-                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg" @click="store(product.id)">@{{ product.name }}</a>
+                                                <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg" @click="store(product.id)">@{{ product.product.name }} - @{{ product.type.name }} - @{{ product.size.name }}Oz</a>
                                                
                                             </div>
                                             <!--end::Text-->
@@ -48,9 +48,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(product, index) in topProducts">
+                                            <tr v-for="(product, index) in topProducts">
                                                 <td>@{{ index + 1 }}</td>
-                                                <td>@{{ product.product.name }}</td>
+                                                <td>@{{ product.product_type_size.product.name }} - @{{ product.product_type_size.type.name }} - @{{ product.product_type_size.size.name }}Oz</td>
                                                 <td><button class="btn btn-danger" @click="erase(product.id)">Eliminar</button></td>
 
                                             </tr>
