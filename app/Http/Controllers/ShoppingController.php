@@ -24,7 +24,7 @@ class ShoppingController extends Controller
 
             $skip = ($page - 1) * 20;
 
-            $shoppings = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->skip($skip)->take(20)->get();
+            $shoppings = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->skip($skip)->take(20)->orderBy('id', 'desc')->get();
             $shoppingsCount = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.size")->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);

@@ -86,7 +86,7 @@
                                         <td v-if="shopping.user">@{{ shopping.user.name }}</td>
                                         <td v-if="shopping.guest">@{{ shopping.guest.name }}</td>
                                         <td>@{{ shopping.status }}</td>
-                                        <td>@{{ shopping.total }}</td>
+                                        <td>@{{ parseFloat(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#shoppingModal" @click="show(shopping)"><i class="far fa-eye"></i></button>
                                         </td>
