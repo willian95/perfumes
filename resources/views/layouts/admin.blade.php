@@ -154,7 +154,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <ul class="nav flex-column">
                         <!--begin::Item-->
                         <li class="nav-item mb-5" data-toggle="tooltip" data-placement="right" data-container="body"
-                            data-boundary="window" title="Latest Projects">
+                            data-boundary="window" title="Inicio">
                             <a href="#" class="nav-link btn btn-icon btn-clean btn-text-white btn-lg active">
                                 <i class="flaticon2-protection icon-lg"></i>
                             </a>
