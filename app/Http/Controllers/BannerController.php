@@ -71,7 +71,9 @@ class BannerController extends Controller
             }
             $banner->small_text = $request->smallText;
             $banner->big_text = $request->bigText;
-            $banner->type = $type;
+            if($request->get('image') != null){
+                $banner->type = $type;
+            }
             $banner->update();
 
             return response()->json(["success" => true, "msg" => "Banner actualizado"]);
