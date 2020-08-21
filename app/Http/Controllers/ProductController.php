@@ -202,11 +202,13 @@ class ProductController extends Controller
                 $slug = $slug."-".uniqid();
             }
 
+            $sanitizedDescription = str_replace("\n", "", $request->description);
+
             $product = Product::find($request->id);
             $product->name = $request->name;
             $product->category_id = $request->category;
             $product->brand_id = $request->brand;
-            $product->description = $request->description;
+            $product->description = $sanitizedDescription;
             if($request->get("image") != null){
                 $product->image = $fileName;
             }
