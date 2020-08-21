@@ -226,7 +226,7 @@
                     type:"",
                     size:"",
                     picture:"",
-                    description:"{!! $product->description !!}",
+                    description:"",
                     productId:'{{ $product->id }}',
                     category:'{{ $product->category_id }}',
                     brand:'{{ $product->brand_id }}',
@@ -459,6 +459,8 @@
                 this.fetchTypes()
                 this.fetchSizes()
                 this.fetchProductType()
+
+                this.description = "{!! $product->description !!}"
 
             }
 
