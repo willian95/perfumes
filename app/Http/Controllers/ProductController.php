@@ -96,11 +96,13 @@ class ProductController extends Controller
                 $slug = $slug."-".uniqid();
             }
 
+            $sanitizedDescription = str_replace("\n", "", $request->description);
+
             $product = new Product;
             $product->name = $request->name;
             $product->category_id = $request->category;
             $product->brand_id = $request->brand;
-            $product->description = $request->description;
+            $product->description = $sanitizedDescription;
             $product->image = $fileName;
             if($request->get("video") != null){
                 $product->video = $fileVideo; 
