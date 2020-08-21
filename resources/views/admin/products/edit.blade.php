@@ -226,7 +226,7 @@
                     type:"",
                     size:"",
                     picture:"",
-                    description:'{{ $product->description }}',
+                    description:'{!! $product->description !!}',
                     productId:'{{ $product->id }}',
                     category:'{{ $product->category_id }}',
                     brand:'{{ $product->brand_id }}',
