@@ -26,6 +26,7 @@
                                         <th>Cliente</th>
                                         <th>Status</th>
                                         <th>Total</th>
+                                        <th>Fecha</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -33,8 +34,9 @@
                                     <tr v-for="(shopping, index) in shoppings">
                                         <th>@{{ index + 1 }}</th>
                                         <td>@{{ shopping.user.name }}</td>
-                                        <td>@{{ shopping.status }}</td>
-                                        <td>@{{ shopping.total }}</td>
+                                        <td style="text-transform: capitalize;">@{{ shopping.status }}</td>
+                                        <td>$ @{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                        <td>@{{ shopping.created_at.toString().substring(0, 10) }}</td>
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#shoppingModal" @click="show(shopping)"><i class="far fa-eye"></i></button>
                                         </td>
