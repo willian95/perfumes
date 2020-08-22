@@ -53,14 +53,15 @@ class ShoppingController extends Controller
     }
 
     function excelExport(){
-        return Excel::download(new ShoppingsExport, 'compras.xlsx');
+        return Excel::download(new ShoppingsExport, 'ventas.xlsx');
     }
 
     function csvExport(){
-        return Excel::download(new ShoppingsExport, 'compras.csv');
+        return Excel::download(new ShoppingsExport, 'ventas.csv');
     }
 
     function pdfExport(){
+        ini_set("max_execution_time", 0);
         $pdf = PDF::loadView('pdf.shoppings');
         return $pdf->stream();
     }
