@@ -65,12 +65,15 @@ class BannerController extends Controller
                 }
             }
 
+            $sanitizeSmallText = str_replace("\n", "", $request->smallText);
+            $sanitizeBigText = str_replace("\n", "", $request->bigText);
+
             $banner = Banner::find(1);
             if($request->get('image') != null){
                 $banner->image = $fileName;
             }
-            $banner->small_text = $request->smallText;
-            $banner->big_text = $request->bigText;
+            $banner->small_text = $sanitizeSmallText;
+            $banner->big_text = $sanitizeBigText;
             if($request->get('image') != null){
                 $banner->type = $type;
             }

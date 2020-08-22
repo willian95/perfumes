@@ -143,19 +143,19 @@
                             
                             <div class="row" v-if="showProduct != ''">
                                 <div class="col-md-6">
-                                    <label>Nombre:</label>
+                                    <label><strong>Nombre:</strong></label>
                                     <p>@{{ showProduct.name }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Marca:</label>
+                                    <label><strong>Marca:</strong></label>
                                     <p>@{{ showProduct.brand.name }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Categoría:</label>
+                                    <label><strong>Categoría:</strong></label>
                                     <p>@{{ showProduct.category.name }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Imágen:</label>
+                                    <label><strong>Imágen:</strong></label>
                                     <img :src="'{{ url('/') }}'+'/images/products/'+showProduct.image" alt="" style="width: 100%">
                                 </div>
                                 <div class="col-md-12">
@@ -168,7 +168,7 @@
                                                 <th>Fragancia</th>
                                                 <th>Tamaño</th>
                                                 <th>Stock</th>
-                                                <th>precio</th>
+                                                <th>Precio</th>
                                                 
                                             </tr>
                                         </thead>
@@ -176,7 +176,7 @@
                                             <tr v-for="(productSize, index) in showProduct.product_type_sizes" v-if="showProduct != ''">
                                                 <th>@{{ index + 1 }}</th>
                                                 <td>@{{ productSize.type.name }}</td>
-                                                <td>@{{ productSize.size.name }}</td>
+                                                <td>@{{ productSize.size.name }}OZ - {{ productSize.size.ml }}ML</td>
                                                 <td>@{{ productSize.stock }}</td>
                                                 <td>$ @{{ parseInt(productSize.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                             </tr>
