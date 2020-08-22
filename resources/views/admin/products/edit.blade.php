@@ -69,6 +69,9 @@
                                     <div class="form-group">
                                         <label for="video">Video</label>
                                         <input type="file" class="form-control" @change="onVideoChange" accept="video/*">
+                                        <video loop style="width: 100%;" autoplay="true" muted="muted">
+                                            <source :src="'{{ env('CMS_URL') }}' + '/videos/'+videoPreview " type="video/mp4">
+                                        </video>
                                     </div>
                                 </div>
 
@@ -237,6 +240,7 @@
                     edit:false,
                     productTypeIndex:"",
                     video:"",
+                    videPreview:"{{ $product->video }}",
                     loading:false
                 }
             },
