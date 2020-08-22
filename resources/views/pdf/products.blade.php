@@ -47,7 +47,12 @@
                         <td colspan="4">
                         </td>
                         <td>
-                            {{ $productTypeSize->type->name }} - {{ $productTypeSize->size->name }}oz
+                            @if($productTypeSize->type)
+                                {{ $productTypeSize->type->name }} 
+                            @endif
+                            @if($productTypeSize->size)
+                            - {{ $productTypeSize->size->name }}oz
+                            @endif
                         </td>
                         <td>
                             {{ $productTypeSize->stock }}
