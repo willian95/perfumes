@@ -14,7 +14,7 @@ class ProductsExport implements FromView
     public function view(): View
     {
         return view('excel.products', [
-            'products' => Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->get()
+            'products' => Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->get()
         ]);
     }
 }
