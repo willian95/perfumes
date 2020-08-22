@@ -11,7 +11,7 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-header flex-wrap py-3">
                             <div class="card-title">
-                                <h3 class="card-label">Compras
+                                <h3 class="card-label">Ventas
                             </div>
                             <div class="card-toolbar">
                                 
@@ -77,16 +77,18 @@
                                         <th>Cliente</th>
                                         <th>Status</th>
                                         <th>Total</th>
+                                        <th>Fecha</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(shopping, index) in shoppings">
-                                        <th>@{{ index + 1 }}</th>
+                                        <th>@{{ shopping.order_id }}</th>
                                         <td v-if="shopping.user">@{{ shopping.user.name }}</td>
                                         <td v-if="shopping.guest">@{{ shopping.guest.name }}</td>
-                                        <td>@{{ shopping.status }}</td>
-                                        <td>@{{ parseFloat(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                        <td style="text-transform: capitalize;">@{{ shopping.status }}</td>
+                                        <td>$ @{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                        <td>@{{ shopping.created_at.toString().substring(0, 10) }}</td>
                                         <td>
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#shoppingModal" @click="show(shopping)"><i class="far fa-eye"></i></button>
                                         </td>
@@ -150,15 +152,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Costo productos</strong></label>
-                                    <p>@{{ parseFloat(shopping.total_products).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
+                                    <p>$ @{{ parseInt(shopping.total_products).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Costo envío</strong></label>
-                                    <p>@{{ parseFloat(shopping.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
+                                    <p>$ @{{ parseInt(shopping.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Total</strong></label>
-                                    <p>@{{ parseFloat(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
+                                    <p>$ @{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Tracking</strong></label>
@@ -188,9 +190,9 @@
                                         <tbody>
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
                                                 <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
-                                                <td>@{{ parseFloat(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>$ @{{ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
-                                                <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
+                                                <td>@{{ shoppingPurchase.product_type_size.size.name }} OZ - @{{ shoppingPurchase.product_type_size.size.ml }} ML</td>
                                             </tr>
                                         </tbody>
                                     </table>
