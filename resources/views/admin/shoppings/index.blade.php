@@ -164,7 +164,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Tracking</strong></label>
+                                    <p>
                                     <a :href="shopping.tracking_url">@{{ shopping.tracking }}</a>
+                                    </p>
                                 </div>
                                 <!--<div class="col-md-6">
                                     <label>Status tracing</label>
