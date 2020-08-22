@@ -9,7 +9,7 @@
     <div>
         <h4 class="text-center">Ventas</h4>
     </div>
-    @foreach(App\Payment::with("productPurchases", "user", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->get() as $payment)
+    @foreach(App\Payment::with("productPurchases", "user", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->has("productPurchases")->has("user")->has("productPurchases.productTypeSize")->has("productPurchases.productTypeSize.product")->has("productPurchases.productTypeSize.product.brand")->has("productPurchases.productTypeSize.type")->has("productPurchases.productTypeSize.size")->get() as $payment)
 
 
         <table class="table" style="font-size: 12px;">
