@@ -98,15 +98,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Costo productos</strong></label>
-                                    <p>@{{ shopping.total_products }}</p>
+                                    <p>@{{ parseInt(shopping.total_products).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Costo envío</strong></label>
-                                    <p>@{{ shopping.shipping_cost }}</p>
+                                    <p>@{{ parseInt(shopping.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Total</strong></label>
-                                    <p>@{{ shopping.total }}</p>
+                                    <p>@{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Tracking</strong></label>
@@ -137,8 +137,8 @@
                                         <tbody>
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
                                                 <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
-                                                <td>@{{ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
-                                                <td>@{{ parseInt(shoppingPurchase.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>@{{ $ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>@{{ $ parseInt(shoppingPurchase.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
                                             </tr>
