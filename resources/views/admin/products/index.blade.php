@@ -176,7 +176,7 @@
                                             <tr v-for="(productSize, index) in showProduct.product_type_sizes" v-if="showProduct != ''">
                                                 <th>@{{ index + 1 }}</th>
                                                 <td>@{{ productSize.type.name }}</td>
-                                                <td>@{{ productSize.size.name }}OZ - {{ productSize.size.ml }}ML</td>
+                                                <td>@{{ productSize.size.name }}OZ - @{{ productSize.size.ml }}ML</td>
                                                 <td>@{{ productSize.stock }}</td>
                                                 <td>$ @{{ parseInt(productSize.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                             </tr>
