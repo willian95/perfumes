@@ -32,7 +32,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(shopping, index) in shoppings">
-                                        <th>@{{ index + 1 }}</th>
+                                        <th>@{{ shopping.order_id }}</th>
                                         <td>@{{ shopping.user.name }}</td>
                                         <td style="text-transform: capitalize;">@{{ shopping.status }}</td>
                                         <td>$ @{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
