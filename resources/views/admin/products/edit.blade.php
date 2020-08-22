@@ -240,7 +240,7 @@
                     edit:false,
                     productTypeIndex:"",
                     video:"",
-                    videPreview:"{{ $product->video }}",
+                    videoPreview:"{{ $product->video }}",
                     loading:false
                 }
             },
