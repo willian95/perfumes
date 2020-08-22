@@ -138,7 +138,7 @@
                                                 <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
                                                 <td>$ @{{ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
-                                                <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
+                                                <td>@{{ shoppingPurchase.product_type_size.size.name }} OZ - @{{ shoppingPurchase.product_type_size.size.ml }} ML</td>
                                             </tr>
                                         </tbody>
                                     </table>
