@@ -89,35 +89,35 @@
                         <div class="modal-body" v-if="shopping != ''">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Cliente</label>
+                                    <label><strong>Cliente</strong></label>
                                     <p>@{{ shopping.user.name }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Email</label>
+                                    <label><strong>Email</strong></label>
                                     <p>@{{ shopping.user.email }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Costo productos</label>
+                                    <label><strong>Costo productos</strong></label>
                                     <p>@{{ shopping.total_products }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Costo envío</label>
+                                    <label><strong>Costo envío</strong></label>
                                     <p>@{{ shopping.shipping_cost }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Total</label>
+                                    <label><strong>Total</strong></label>
                                     <p>@{{ shopping.total }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Tracking</label>
+                                    <label><strong>Tracking</strong></label>
                                     <p>@{{ shopping.tracking }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Status tracing</label>
+                                    <label><strong>Status tracing</strong></label>
                                     <p>@{{ shopping.status_shipping }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Dirección</label>
+                                    <label><strong>Dirección</strong></label>
                                     <p>@{{ shopping.address }}</p>
                                 </div>
                                 <div class="col-md-12">
@@ -137,8 +137,8 @@
                                         <tbody>
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
                                                 <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
-                                                <td>@{{ shoppingPurchase.price }}</td>
-                                                <td>@{{ shoppingPurchase.shipping_cost }}</td>
+                                                <td>@{{ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>@{{ parseInt(shoppingPurchase.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
                                             </tr>
