@@ -137,8 +137,8 @@
                                         <tbody>
                                             <tr v-for="(shoppingPurchase, index) in shopping.product_purchases">
                                                 <td>@{{ shoppingPurchase.product_type_size.product.brand.name }} - @{{ shoppingPurchase.product_type_size.product.name }}</td>
-                                                <td>@{{ $ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
-                                                <td>@{{ $ parseInt(shoppingPurchase.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>$ @{{ parseInt(shoppingPurchase.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>$ @{{ parseInt(shoppingPurchase.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.type.name }}</td>
                                                 <td>@{{ shoppingPurchase.product_type_size.size.name }} Oz</td>
                                             </tr>
