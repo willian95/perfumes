@@ -67,7 +67,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="video">video</label>
+                                        <label for="video">Video</label>
                                         <input type="file" class="form-control" @change="onVideoChange" accept="video/*">
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                                 <td>@{{ index + 1 }}</td>
                                                 <td v-if="productSizeType.type">@{{ productSizeType.type.name }}</td>
                                                 <td v-else></td>
-                                                <td v-if="productSizeType.size">@{{ productSizeType.size.name }}</td>
+                                                <td v-if="productSizeType.size">@{{ productSizeType.size.name }} OZ - @{{ productSizeType.size.ml }} ML</td>
                                                 <td v-else></td>
                                                 <td>@{{ productSizeType.stock }}</td>
                                                 <td>$ @{{ parseInt(productSizeType.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }} </td>
@@ -167,7 +167,7 @@
                                 <div class="form-group">
                                     <label for="size">Tamaño</label>
                                     <select id="size" class="form-control" v-model="size">
-                                        <option :value="size" v-for="size in sizes">@{{ size.name }}</option>
+                                        <option :value="size" v-for="size in sizes">@{{ size.name }} OZ - @{{ size.ml }} ML</option>
                                     </select>
                                 </div>
                             </div>
