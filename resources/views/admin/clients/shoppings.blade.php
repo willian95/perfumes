@@ -78,7 +78,7 @@
 
             <!-- Modal-->
             <div class="modal fade" id="shoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Información</h5>
@@ -98,15 +98,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Costo productos</strong></label>
-                                    <p>@{{ parseInt(shopping.total_products).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
+                                    <p>$ @{{ parseInt(shopping.total_products).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Costo envío</strong></label>
-                                    <p>@{{ parseInt(shopping.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
+                                    <p>$ @{{ parseInt(shopping.shipping_cost).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Total</strong></label>
-                                    <p>@{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
+                                    <p>$ @{{ parseInt(shopping.total).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label><strong>Tracking</strong></label>
