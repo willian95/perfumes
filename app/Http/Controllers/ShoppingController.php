@@ -24,10 +24,10 @@ class ShoppingController extends Controller
 
             $skip = ($page - 1) * 20;
 
-            $shoppings = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->has("productPurchases")->has("user")->has("guest")
+            $shoppings = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.size")->has("productPurchases")
             ->has("productPurchases.productTypeSize")->has( "productPurchases.productTypeSize.product")->has( "productPurchases.productTypeSize.product.brand")->has( "productPurchases.productTypeSize.type")->has( "productPurchases.productTypeSize.size")
             ->skip($skip)->take(20)->orderBy('id', 'desc')->get();
-            $shoppingsCount = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.size")->has("productPurchases")->has("user")->has("guest")
+            $shoppingsCount = Payment::with("productPurchases", "user", "guest", "productPurchases.productTypeSize", "productPurchases.productTypeSize.product", "productPurchases.productTypeSize.type", "productPurchases.productTypeSize.product.brand", "productPurchases.productTypeSize.size")->has("productPurchases")
             ->has("productPurchases.productTypeSize")->has( "productPurchases.productTypeSize.product")->has( "productPurchases.productTypeSize.product.brand")->has( "productPurchases.productTypeSize.type")->has( "productPurchases.productTypeSize.size")->count();
 
             return response()->json(["success" => true, "shoppings" => $shoppings, "shoppingsCount" => $shoppingsCount]);
