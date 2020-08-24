@@ -24,7 +24,7 @@ class ProductController extends Controller
     }
 
     function edit($id){
-        $product = Product::where("id", $id)->with("brand", "category")->first();
+        $product = Product::where("id", $id)->with("brand", "category")->has("brand")->has("category")->first();
         return view("admin.products.edit", ["product" => $product]);
     }
 
@@ -280,8 +280,8 @@ class ProductController extends Controller
 
             $skip = ($page - 1) * 20;
 
-            $products = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->skip($skip)->take(20)->get();
-            $productsCount = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->count();
+            $products = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->skip($skip)->take(20)->get();
+            $productsCount = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->count();
 
             return response()->json(["success" => true, "products" => $products, "productsCount" => $productsCount]);
 
@@ -314,7 +314,7 @@ class ProductController extends Controller
 
         try{
 
-            $productType = ProductTypeSize::where("product_id", $id)->with("type", "size")->get();
+            $productType = ProductTypeSize::where("product_id", $id)->with("type", "size")->has("type")->has("size")->get();
             return response()->json(["success" => true, "productType" => $productType]);
 
         }catch(\Exception $e){  

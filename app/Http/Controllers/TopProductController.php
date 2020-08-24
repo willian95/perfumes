@@ -34,7 +34,7 @@ class TopProductController extends Controller
 
         $products = ProductTypeSize::whereHas("product", function($q) use($request){
             $q->where("name", "like", "%".$request->search."%");
-        })->with("product", "size", "type")->take(20)->get();
+        })->with("product", "size", "type")->has("product")->has("size")->has("type")->take(20)->get();
         
         return response()->json(["products" => $products]);
 
@@ -44,7 +44,9 @@ class TopProductController extends Controller
 
         try{
 
-            $products = TopProduct::with("productTypeSize", "productTypeSize.product", "productTypeSize.type", "productTypeSize.size")->get();
+            $products = TopProduct::with("productTypeSize", "productTypeSize.product", "productTypeSize.type", "productTypeSize.size")
+            ->has("productTypeSize")->has( "productTypeSize.product")->has( "productTypeSize.type")->has( "productTypeSize.size")
+            ->get();
             return response()->json(["success" => true, "products" => $products]);
 
         }catch(\Exception $e){
