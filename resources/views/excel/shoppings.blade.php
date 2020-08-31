@@ -5,7 +5,7 @@
             <tbody style="font-size: 12px;">
                 <tr>
                     <td style="width: 30px;"><strong>Orden:</strong> {{ $payment->order_id }}</td>
-                    <td style="width: 30px;"><strong>Usuario:</strong> {{ $payment->user->name }} - {{ $payment->user->email }}</td>
+                    <td style="width: 30px;"><strong>Usuario:</strong>@if($payment->user) {{ $payment->user->name }} - {{ $payment->user->email }} @endif</td>
                     <td style="width: 30px;"><strong>Costo productos:</strong>$ {{ number_format($payment->total_products, 0, ",", ".") }}</td>
                     <td style="width: 30px;"><strong>Costo envío:</strong>$ {{ number_format($payment->shipping_cost, 0, ",", ".") }}</td>
                     
@@ -40,9 +40,24 @@
                 @foreach($payment->productPurchases as $purchase)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $purchase->productTypeSize->product->name }}</td>
-                        <td>{{ $purchase->productTypeSize->type->name }}</td>
-                        <td>{{ $purchase->productTypeSize->size->name }}oz</td>
+                        <td>@if($purchase->productTypeSize)
+                                @if($purchase->productTypeSize->product)
+                                    {{ $purchase->productTypeSize->product->name }}
+                                @endif
+                            @endif
+                        </td>
+                        <td>
+                            @if($purchase->productTypeSize)
+                                @if($purchase->productTypeSize->type)
+                                    {{ $purchase->productTypeSize->type->name }}</td>
+                                @endif
+                            @endif
+                        <td>
+                            @if($purchase->productTypeSize)
+                                @if($purchase->productTypeSize->size)
+                                    {{ $purchase->productTypeSize->size->name }}oz / {{ $purchase->productTypeSize->size->ml }}ml</td>
+                                @endif
+                            @endif
                         <td>{{ $purchase->amount }}</td>
                         <td>$ {{ number_format($purchase->price, 0, ",", ".") }}</td>
                     </tr>

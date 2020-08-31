@@ -82,7 +82,7 @@
                                         <th>Telefono</th>
                                         <th>Dirección</th>
                                         <th>Email</th>
-                                        <th>Cedula</th>
+                                        <th>Cédula</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>

@@ -156,7 +156,7 @@
                                 <div class="form-group">
                                     <label for="size">Tamaño</label>
                                     <select id="size" class="form-control" v-model="size">
-                                        <option :value="size" v-for="size in sizes">@{{ size.name }}</option>
+                                        <option :value="size" v-for="size in sizes">@{{ size.name }} oz / @{{ size.ml }} ml</option>
                                     </select>
                                 </div>
                             </div>

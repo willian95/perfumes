@@ -212,7 +212,7 @@
 
                             swal({
                                 title: "Perfecto!",
-                                text: "Has creado una categoría!",
+                                text: "Haz creado una categoría!",
                                 icon: "success"
                             });
                             this.name = ""

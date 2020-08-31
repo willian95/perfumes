@@ -83,7 +83,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Abrevicación</th>
+                                        <th>Abreviación</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>

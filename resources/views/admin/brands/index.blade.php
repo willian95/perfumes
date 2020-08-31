@@ -219,7 +219,7 @@
 
                             swal({
                                 title: "Perfecto!",
-                                text: "Has creado una marca!",
+                                text: "Haz creado una marca!",
                                 icon: "success"
                             });
                     
