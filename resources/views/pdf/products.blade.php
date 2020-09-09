@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody style="font-size: 12px;">
-            @foreach(App\Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->get() as $product)
+            @foreach(App\Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->get() as $product)
                 <tr style="background-color: rgba(0,0,0,.075);">
                     <td>
                         {{ $loop->index + 1 }}
