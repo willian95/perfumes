@@ -193,6 +193,7 @@
                 create(){
                     this.action = "create"
                     this.name = ""
+                    this.ml = ""
                     this.sizeId = ""
                 },
                 store(){
@@ -261,6 +262,7 @@
                     this.modalTitle = "Editar tamaño"
                     this.action = "edit"
                     this.name = size.name
+                    this.ml = size.ml
                     this.sizeId = size.id
                 },
                 fetch(page = 1){
