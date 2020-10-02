@@ -155,7 +155,7 @@
 
                             swal({
                                 title: "Perfecto!",
-                                text: "Has creado una promoción!",
+                                text: "Haz creado una promoción!",
                                 icon: "success"
                             });
 
