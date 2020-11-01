@@ -118,6 +118,7 @@ class ProductController extends Controller
                 $productType->size_id = $productTypeSize["size"]["id"];
                 $productType->stock = $productTypeSize["stock"];
                 $productType->price = $productTypeSize["price"];
+                $productType->discount_percentage = $productTypeSize["discount_percentage"];
                 $productType->save();
 
             }
@@ -250,6 +251,7 @@ class ProductController extends Controller
                         $productType->size_id = $productTypeSize["size"]["id"];
                         $productType->stock = $productTypeSize["stock"];
                         $productType->price = $productTypeSize["price"];
+                        $productType->discount_percentage = $productTypeSize["discount_percentage"];
                         $productType->update();
                     }
 
@@ -260,6 +262,7 @@ class ProductController extends Controller
                     $productType->size_id = $productTypeSize["size"]["id"];
                     $productType->stock = $productTypeSize["stock"];
                     $productType->price = $productTypeSize["price"];
+                    $productType->discount_percentage = $productTypeSize["discount_percentage"];
                     $productType->save();
                 }
                 

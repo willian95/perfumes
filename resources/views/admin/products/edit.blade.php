@@ -102,6 +102,7 @@
                                                 <th>Tamaño</th>
                                                 <th>Stock</th>
                                                 <th>Precio</th>
+                                                <th>Descuento</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -114,6 +115,7 @@
                                                 <td v-else></td>
                                                 <td>@{{ productSizeType.stock }}</td>
                                                 <td>$ @{{ parseInt(productSizeType.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }} </td>
+                                                <td>@{{ productSizeType.discount_percentage }} %</td>
                                                 <td>
                                                     <button class="btn btn-success" @click="editProductSizeType(index)" data-toggle="modal" data-target="#productModal"><i class="far fa-edit"></i></button>
                                                     <button class="btn btn-danger" @click="deleteProductSizeType(index)"><i class="far fa-trash-alt"></i></button>
@@ -193,6 +195,18 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">Descuento %</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" v-model="discountPercentage" @keypress="isNumber($event)">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -241,6 +255,7 @@
                     productTypeIndex:"",
                     video:"",
                     videoPreview:"{{ $product->video }}",
+                    discountPercentage:0,
                     loading:false
                 }
             },
@@ -293,11 +308,12 @@
                 addProductSizeType(){
 
                     if(this.size != "" && this.type != "" && this.stock != "" && this.price != ""){
-                        this.productSizeTypes.push({size: this.size, type: this.type, stock: this.stock, price: this.price})
+                        this.productSizeTypes.push({size: this.size, type: this.type, stock: this.stock, price: this.price, discount_percentage: this.discountPercentage})
                         this.size = ""
                         this.type = ""
                         this.stock = ""
                         this.price = ""
+                        this.discountPercentage = ""
                     }
 
                 },
@@ -313,6 +329,7 @@
                     this.type = this.productSizeTypes[index]["type"]
                     this.stock = this.productSizeTypes[index]["stock"]
                     this.price = this.productSizeTypes[index]["price"]
+                    this.discountPercentage = this.productSizeTypes[index]["discount_percentage"]
                     this.productTypeIndex = index
                     this.edit = true
 
@@ -323,6 +340,7 @@
                     this.productSizeTypes[this.productTypeIndex]["type"] = this.type
                     this.productSizeTypes[this.productTypeIndex]["stock"] = this.stock
                     this.productSizeTypes[this.productTypeIndex]["price"] = this.price
+                    this.productSizeTypes[this.productTypeIndex]["discount_percentage"] = this.discountPercentage
                     this.edit = false
                     this.productTypeIndex = ""
 
@@ -330,6 +348,7 @@
                     this.type = ""
                     this.stock = ""
                     this.price = ""
+                    this.discountPercentage = ""
 
                 },
                 create(){
@@ -338,6 +357,7 @@
                     this.type = ""
                     this.stock = ""
                     this.price = ""
+                    this.discountPercentage = ""
                 },
                 fetchCategories(){
 

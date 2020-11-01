@@ -92,6 +92,7 @@
                                                 <th>Tamaño</th>
                                                 <th>Stock</th>
                                                 <th>Precio</th>
+                                                <th>Descuento</th>
                                                 <th>Acción</th>
                                             </tr>
                                         </thead>
@@ -102,6 +103,7 @@
                                                 <td>@{{ productSizeType.size.name }}</td>
                                                 <td>@{{ productSizeType.stock }}</td>
                                                 <td>$ @{{ parseInt(productSizeType.price).toString().replace(/\B(?=(\d{3})+\b)/g, ".") }}</td>
+                                                <td>@{{ productSizeType.discount_percentage }} %</td>
                                                 <td>
                                                     <button class="btn btn-danger" @click="deleteProductSizeType(index)"><i class="far fa-trash-alt"></i></button>
                                                 </td>
@@ -179,6 +181,18 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">Descuento %</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" v-model="discountPercentage" @keypress="isNumber($event)">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -208,6 +222,7 @@
                     brands:[],
                     types:[],
                     sizes:[],
+                    discountPercentage:0,
                     productSizeTypes:[],
                     stock:"",
                     price:"",
@@ -305,12 +320,13 @@
                 },
                 addProductSizeType(){
 
-                    this.productSizeTypes.push({size: this.size, type: this.type, stock: this.stock, price: this.price})
+                    this.productSizeTypes.push({size: this.size, type: this.type, stock: this.stock, price: this.price, discount_percentage: this.discountPercentage})
 
                     this.size = ""
                     this.type = ""
                     this.stock = ""
                     this.price = ""
+                    this.discountPercentage = 0
 
                 },
                 deleteProductSizeType(index){
