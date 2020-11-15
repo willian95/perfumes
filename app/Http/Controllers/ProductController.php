@@ -277,13 +277,28 @@ class ProductController extends Controller
 
     }
 
-    function fetch($page = 1){
+    function fetch($page = 1, Request $request){
 
         try{
 
             $skip = ($page - 1) * 20;
+        
+            $query = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->skip($skip)->take(20);
 
-            $products = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->skip($skip)->take(20)->get();
+            if(isset($request->order)){
+
+                if($request->orderBy == "1"){
+                    $query->orderBy("name", "asc");
+                }else if($request->order == "2"){
+                    $query->orderBy("name", "desc");
+                }
+
+            }else{
+                $query->orderBy("name", "asc");
+            }
+
+            $products = $query->get();
+
             $productsCount = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->count();
 
             return response()->json(["success" => true, "products" => $products, "productsCount" => $productsCount]);
@@ -325,6 +340,35 @@ class ProductController extends Controller
             return response()->json(["success" => false, "msg" => "Error en el servidor", "err" => $e->getMessage(), "ln" => $e->getLine()]);
 
         }   
+
+    }
+
+    function search(Request $request){
+        
+        try{
+
+            $skip = ($request->page - 1) * 20;
+
+            $query = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->where("name", "like", '%'.$request->search.'%')->has("productTypeSizes.type")->has("productTypeSizes.size")->skip($skip)->take(20);
+
+            if($request->order == 1){
+                $query->orderBy("name", "asc");
+            }
+            else if($request->order == 2){
+                $query->orderBy("name", "desc");
+            }
+
+            $products = $query->get();
+
+            $productsCount = Product::with("category", "brand", "productTypeSizes", "productTypeSizes.type", "productTypeSizes.size")->has("category")->has("brand")->has("productTypeSizes")->has("productTypeSizes.type")->has("productTypeSizes.size")->where("name", "like", '%'.$request->search.'%')->count();
+
+            return response()->json(["success" => true, "products" => $products, "productsCount" => $productsCount]);
+
+        }catch(\Exception $e){
+
+            return response()->json(["success" => false, "msg" => "Hubo un problema", "ln" => $e->getLine(), "err" => $e->getMessage()]);
+
+        }
 
     }
 

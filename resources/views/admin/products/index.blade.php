@@ -75,6 +75,26 @@
                         </div>
                         <div class="card-body">
                             <!--begin: Datatable-->
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="product">Perfume</label>
+                                        <input type="text" class="form-control" v-model="search" @keyUp="look()">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="orderBy">Ordenar por:</label>
+                                        <select class="form-control" v-model="orderBy" @change="fetch()" id="orderBy">
+                                            <option value="1">A - Z</option>
+                                            <option value="2">Z - A</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
                             <table class="table table-bordered table-checkable" id="kt_datatable">
                                 <thead>
                                     <tr>
@@ -212,8 +232,10 @@
             data(){
                 return{
                     modalTitle:"Nueva categoría",
+                    search:"",
                     products:[],
                     showProduct:"",
+                    orderBy:1,
                     pages:0,
                     page:1,
                     showMenu:false,
@@ -222,24 +244,49 @@
             methods:{
                 
                 fetch(page = 1){
-                    this.page = page
-                    axios.get("{{ url('/admin/product/fetch/') }}"+"/"+page).then(res => {
+                    if(this.search == ""){
+                        this.page = page
+                        axios.get("{{ url('/admin/product/fetch/') }}"+"/"+page+"?order="+this.orderBy).then(res => {
 
-                        if(res.data.success == true){
+                            if(res.data.success == true){
 
-                            this.products = res.data.products
-                            this.pages = Math.ceil(res.data.productsCount / 20)
+                                this.products = res.data.products
+                                this.pages = Math.ceil(res.data.productsCount / 20)
 
-                        }else{
-                            alert(res.data.msg)
-                        }
+                            }else{
+                                alert(res.data.msg)
+                            }
 
-                    })
+                        })
+                    }else{
+                        this.page = page
+                        this.look(page)
+
+                    }
 
                 },
                 show(product){
 
                     this.showProduct = product
+
+                },
+                look(page = 1){
+
+                    if(this.search != ""){
+                        axios.post("{{ url('/admin/product/search') }}", {search: this.search, page: page, order: this.orderBy}).then(res => {
+
+                            console.log("res", res)
+
+                            this.products = res.data.products
+                            this.pages = Math.ceil(res.data.productsCount / 20)
+
+                        })
+                    }else{
+                        
+                        this.fetch(1)
+
+                    }
+                    
 
                 },
                 erase(id){
