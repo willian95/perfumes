@@ -83,6 +83,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get("/admin/product/pdf", "ProductController@pdfExport");
     Route::get("/admin/product/csv", "ProductController@csvExport");
     Route::post("/admin/product/store", "ProductController@store");
+    Route::post("/admin/product/search", "ProductController@search");
     Route::post("/admin/product/update", "ProductController@update");
     Route::post("/admin/product/delete", "ProductController@delete");
 
